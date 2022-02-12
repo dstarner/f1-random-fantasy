@@ -9,6 +9,8 @@ gunicorn = "*"
 dj-database-url = "*"
 whitenoise = "*"
 psycopg2-binary = "*"
+"ruamel.yaml" = "*"
+pyyaml = "*"
 
 [dev-packages]
 

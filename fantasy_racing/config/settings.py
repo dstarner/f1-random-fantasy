@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 
 USE_WHITENOISE = get_bool_env('USE_WHITENOISE', False)
 
-MIDDLEWARE = [
+MIDDLEWARE = list(filter(lambda x: x is not None, [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware' if USE_WHITENOISE else None,
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -59,7 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+]))
 
 ROOT_URLCONF = 'fantasy_racing.config.urls'
 
