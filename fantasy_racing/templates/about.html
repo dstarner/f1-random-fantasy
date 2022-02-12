@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="pv3 tl mw8 center vhs-blur vhs-duration-4">
+    <h1 class="f3 f2-m f1-l lh-title mb0 normal domaine-display mb3">
+        <span class="nowrap">F1 Random Fantasy Racing</span> is a fantasy Formula 1 racing game where the computer makes your picks for you.
+    </h1>
+                  
+    {% for faq in faqs %}
+    <h3 class="f3 f2-l pt4 pt5-l pb0 ma0 lh-title measure-wide domaine-display">{{ faq.question }}</h3>
+    <p class="f6 f5-ns lh-copy pt3 ma0 measure-wide">{{ faq.answer }}</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="vhs-blur vhs-duration-4">
+
+    <h1 class="pb3 f3 f2-m f1-l domaine-display">{{ schedule.year }} Race Schedule</h1>
+
+    <div class="overflow-auto">
+        <table class="f6 f5-l w-100 mw8 center ba bn-ns b--light-purple" cellspacing="0">
+            <thead>
+                <tr class="tl f7 ttu tracked-l light-purple">
+                    <th class="pa2 nowrap normal">No.</th>
+                    <th class="pa2 nowrap normal">Date</th>
+                    <th class="pa2 nowrap normal">Race</th>
+                    <th class="pa2 nowrap normal tc">Picks</th>
+                </tr>
+            </thead>
+            <tbody class="lh-copy">
+                {% for race in schedule.races.all %}
+                <tr class="tl stripe-dark">
+                    <td class="pa2">{{ forloop.counter }}</td>
+                    <td class="pa2">
+                        <span class="nowrap dn di-ns">{{ race.date|date:"F d, Y" }}</span>
+                        <span class="nowrap di dn-ns">{{ race.date|date:"M d" }}</span>
+                    </td>
+                    <td class="pa2">
+                        <span class="nowrap">
+                            {% if race.is_viewable %}
+                            <a class="link dim light-pink" href="{% url 'race_id' id=race.id %}">
+                                {{ race.track }}
+                            </a>
+                            {% else %}
+                            {{ race.track }}
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td class="pa2 tc">
+                        {% if race.is_current %}
+                            <a href="{% url 'play' %}" class="link dim bg-blue br2 f7 white ph3 pv2 vhs-fade vhs-alternate vhs-duration-4 vhs-delay-4">Play</a>
+                        {% elif race.is_active %}
+                            0
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="mt4">
+        <ul class="list pv4 ph0 ma0">
+              {% for year in years %}<li class="dib mr1 mb2">
+                  <a href="{% url 'schedule_year' year=year %}" class="f6 f5-ns db pa2 link dim {% if year == schedule.year %}bg-light-pink purple{% else %}light-pink{% endif %} ba b--light-purple">{{ year }}</a>
+              </li>{% endfor %}
+      </div>
+
+</div>
+{% endblock %}

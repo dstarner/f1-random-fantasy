@@ -1,0 +1,165 @@
+- model: picks.schedule
+  pk: 1
+  fields:
+    year: 2022
+- model: picks.race
+  pk: 1
+  fields:
+    schedule: 1
+    track: Bahrain
+    date: 2022-03-20
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 3
+  fields:
+    schedule: 1
+    track: Saudi Arabia
+    date: 2022-03-27
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 4
+  fields:
+    schedule: 1
+    track: Australia
+    date: 2022-04-10
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 5
+  fields:
+    schedule: 1
+    track: Italy
+    date: 2022-04-24
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 6
+  fields:
+    schedule: 1
+    track: Miami
+    date: 2022-05-08
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 7
+  fields:
+    schedule: 1
+    track: Spain
+    date: 2022-05-22
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 8
+  fields:
+    schedule: 1
+    track: Monaco
+    date: 2022-05-29
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 9
+  fields:
+    schedule: 1
+    track: Azerbaijan
+    date: 2022-06-12
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 10
+  fields:
+    schedule: 1
+    track: Canada
+    date: 2022-06-19
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 11
+  fields:
+    schedule: 1
+    track: Great Britain
+    date: 2022-07-03
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 12
+  fields:
+    schedule: 1
+    track: Austria
+    date: 2022-07-10
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 13
+  fields:
+    schedule: 1
+    track: France
+    date: 2022-07-24
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 14
+  fields:
+    schedule: 1
+    track: Hungary
+    date: 2022-07-31
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 15
+  fields:
+    schedule: 1
+    track: Belgium
+    date: 2022-08-28
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 16
+  fields:
+    schedule: 1
+    track: Netherlands
+    date: 2022-09-04
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 17
+  fields:
+    schedule: 1
+    track: Italy
+    date: 2022-09-11
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 18
+  fields:
+    schedule: 1
+    track: Russia
+    date: 2022-09-25
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 19
+  fields:
+    schedule: 1
+    track: Singapore
+    date: 2022-10-02
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 20
+  fields:
+    schedule: 1
+    track: Japan
+    date: 2022-10-09
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 21
+  fields:
+    schedule: 1
+    track: COTA
+    date: 2022-10-23
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 22
+  fields:
+    schedule: 1
+    track: Mexico
+    date: 2022-10-30
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 23
+  fields:
+    schedule: 1
+    track: Brazil
+    date: 2022-11-13
+    submit_by: 2022-02-12 21:24:38.368249+00:00
+- model: picks.race
+  pk: 24
+  fields:
+    schedule: 1
+    track: Abu Dhabi
+    date: 2022-11-20
+    submit_by: 2022-02-12 21:24:38.368249+00:00

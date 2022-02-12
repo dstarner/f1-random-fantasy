@@ -1,0 +1,54 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="vhs-blur vhs-duration-4">
+    <h1 class="pb0 f3 f2-m f1-l domaine-display">
+        {{ race.track }}<span class="f4 f3-m f2-l dn"> presented by <a class="link dim light-pink nowrap hide-child" target="_blank" href="#">TBA <span class="light-purple child absolute">&rarr;</span></a></span>
+    </h1>
+    <h2 class="pb3 f7 f5-ns normal ttu tracked">
+        <a href="{% url 'schedule_year' year=race.schedule.year %}" class="link dim light-pink">{{ race.schedule.year }}</a> Race {{ race.idx }} &middot; <span class="nowrap">{{ race.date|date:"F d, Y" }}</span>
+    </h2>
+                
+    <div class="overflow-auto">
+        <table class="f6 f5-l w-100 mw8 center ba bn-ns b--light-purple" cellspacing="0">
+            <thead>
+                <tr class="tl f7 ttu tracked-l light-purple">
+                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/time/asc" class="link dim light-purple bb bw1">No.</a></th>
+                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/pick/asc" class="link dim light-purple ">Pick</a></th>
+                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/username/asc" class="link dim light-purple ">Player</a></th>
+                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/position/asc" class="link dim light-purple ">Pos.</a></th>
+                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/points/desc" class="link dim light-purple ">Pts.</a></th>
+                </tr>
+                </thead>
+            <tbody class="lh-copy">
+                <tr class="tl stripe-dark">
+                    <td class="pa2">1</td>
+                    <td class="pa2"><a class="link dim light-pink hide-child nowrap" href="https://twitter.com/gokyhoe/status/1487870624664064008" target="_blank" title="2022-01-30 07:29 PM">#21 <span class="light-purple child">&rarr;</span></a></td>
+                    <td class="pa2"><a class="link dim light-pink" href="https://randomfantasyracing.com/player/gokyhoe/">@gokyhoe</a></td>
+                    <td class="pa2">12</td>
+                    <td class="pa2">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    {% if race.is_current %}
+    <div class="fixed top-2 right-2 z-3"><a class="link dim bg-blue white br2 ph3 pv2 f6" href="{% url 'play' %}">Play</a></div>
+        <p class="pt4 f6 f4-ns">There&rsquo;s still time to make your pick for this race!</p><p><a target="_blank" class="f5 br2 bg-blue white pa3 link bg-blue hover-bg-light-purple grow dib" href="{% url 'play' %}" onclick="doit(); ga('send', 'event', { eventCategory: 'Button', eventAction: 'Button Press', eventLabel: 'Random Number Fantasy Racing Picks Page Bottom'});">Tweet My Random <span class="dn di-ns">Fantasy Racing</span> Pick</a></p>
+        <p class="f6 light-purple">Your pick will be tweeted to your followers.</p>
+    </div>
+                    
+    <div class="mt4 tl">
+        <h3 class="f6 light-purple ttu tracked pt4 normal">{{ race.schedule.year }} Races:</h3>
+            <ul class="list pb4 ph0 ma0">
+                {% for sched_race in race.schedule.races.viewable.all %}
+                    <li class="dib mr1 mb2"><a href="{% url 'race_id' id=sched_race.id %}" class="f6 f5-ns db pa2 link dim {% if race.id == sched_race.id %}bg-light-pink purple{% else %}light-pink{% endif %} ba b--light-purple">{{ sched_race.track }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+         
+{% endblock %}
