@@ -10,7 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+import dj_database_url
+
+
+def get_bool_env(key, default=False):
+    return os.getenv(key, default) in [True, 'True', 'true', '1', 'yes']
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k#yg$nf$5d8&3v==_d@a(=fqh!ubmx+&tk1#w7s*$znif&e330'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-k#yg$nf$5d8&3v==_d@a(=fqh!ubmx+&tk1#w7s*$znif&e330')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = get_bool_env('DEBUG', default=True)
 
 ALLOWED_HOSTS = ['*']
 
@@ -40,8 +48,11 @@ INSTALLED_APPS = [
     'fantasy_racing.picks',
 ]
 
+USE_WHITENOISE = get_bool_env('USE_WHITENOISE', False)
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware' if USE_WHITENOISE else None,
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,6 +94,9 @@ DATABASES = {
     }
 }
 
+if os.getenv('DATABASE_URL', None) is not None:
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -121,12 +135,64 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'collected-static'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+if USE_WHITENOISE:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOG_LEVEL = os.getenv('LOG_LEVEL', default='INFO')
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler'
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': (
+                '[{schema_name}:{domain_url}] {levelname} {asctime} {module} {process:d} {thread:d} {message}'
+            ),
+            'style': '{',
+        },
+        'simple': {
+            'format': '[{schema_name}] {levelname} {message}',
+            'style': '{',
+        },
+    },
+    'loggers': {
+        'django': {
+            'formatter': 'simple' if DEBUG else 'verbose',
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'fantasy_racing': {
+            'formatter': 'simple' if DEBUG else 'verbose',
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+            'propagate': True,
+        },
+        'celery': {
+            'formatter': 'simple' if DEBUG else 'verbose',
+            'handlers': ['console'],
+            'level': LOG_LEVEL,
+            'propagate': True,
+        },
+    },
+}

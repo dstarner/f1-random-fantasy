@@ -1,4 +1,5 @@
 import random
+from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 
 from .models import Race, Schedule
@@ -32,6 +33,8 @@ def schedule(request, year=None):
 
 def picks(request, id=None):
     race = Race.objects.current() if id is None else get_object_or_404(Race, id=id)
+    if not race:
+        raise Http404
     return render(request, 'picks.html', {'race': race, 'title': race.track})
 
 
