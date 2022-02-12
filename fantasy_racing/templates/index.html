@@ -8,7 +8,7 @@
     </h1>
 
 
-    <h4 class="pa0 ma0 f6 f5-ns normal">Get your pick for <a href="/picks/292" class="link dim light-pink">Daytona</a>:</h4>
+    <h4 class="pa0 ma0 f6 f5-ns normal">Get your pick for <a href="{% url 'race_id' id=race.id %}" class="link dim light-pink">{{ race.track }}</a>:</h4>
     <p class="vhs-fade vhs-alternate vhs-infinite vhs-duration-4 vhs-delay-2">
         <a class="f4 f3-ns br2 bg-blue hover-bg-light-purple grow white pa3 link dib" href="/play" onclick="doit(); ga('send', 'event', { eventCategory: 'Button', eventAction: 'Button Press', eventLabel: 'Random Number Fantasy Racing'});">
             Tweet My Random <span class="dn di-ns">Fantasy Racing</span> Pick

@@ -6,7 +6,9 @@ from .models import Race, Schedule
 
 
 def index(request):
+    race = Race.objects.current()
     return render(request, 'index.html', {
+        'race': race,
         'headline': random.choice([
             'The fantasy racing game where you don\'t get to pick who wins.',
             'Why spend money on fantasy racing?',
