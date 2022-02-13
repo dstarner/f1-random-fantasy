@@ -57,21 +57,26 @@ def standings(request, year=None):
 
 def play(request: HttpRequest):
     oauth = twitter.get_oauth_client()
-    auth_url = oauth.get_authorization_url()
+    auth_url = oauth.get_authorization_url(signin_with_twitter=True)
     response = HttpResponseRedirect(auth_url)
-    request.session['code_verifier'] = oauth.code_verifier
+    request.session['request_token'] = oauth.request_token
     return response
 
 
 def pick(request: HttpRequest):
+    verifier = request.GET.get('oauth_verifier')
     oauth = twitter.get_oauth_client()
-    oauth.code_verifier = request.session['code_verifier']
-    request.session.delete('code_verifier')
-    
-    bearer_token_info = oauth.fetch_token(authorization_response=request.build_absolute_uri())
-    client = twitter.get_client(bearer_token_info)
+    token = request.session.get('request_token')
+	# remove the request token now we don't need it
+    request.session.delete('request_token')
+    oauth.request_token = token
+
+    access_token, access_token_secret = oauth.get_access_token(verifier)
+    client = twitter.get_client(access_token, access_token_secret)
     try:
-        user = client.get_user(username='dan_starner')
+        user = client.get_me()
     except tweepy.Forbidden as e:
+        user = None
         logger.exception('unable to get user info: %s', e.response.json())
+    logger.info(user)
     return render(request, 'pick.html')
