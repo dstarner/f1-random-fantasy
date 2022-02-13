@@ -22,6 +22,64 @@ class FAQ(models.Model):
         return self.question
 
 
+class RaceTeamManager(models.Manager):
+
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+
+class RaceTeam(models.Model):
+
+    name = models.CharField(max_length=64)
+
+    objects = RaceTeamManager()
+
+    class Meta:
+        verbose_name = 'Race Team'
+        verbose_name_plural = 'Race Teams'
+    
+    def natural_key(self):
+        return (self.name,)
+
+    def __str__(self):
+        return self.name
+
+
+class RaceDriverManager(models.Manager):
+
+    def get_by_natural_key(self, first_name, last_name):
+        return self.get(first_name=first_name, last_name=last_name)
+
+
+class RaceDriver(models.Model):
+
+    first_name = models.CharField(max_length=32)
+
+    last_name = models.CharField(max_length=64)
+
+    default_number = models.IntegerField(help_text='The driver\'s default number')
+
+    default_team = models.ForeignKey(RaceTeam, on_delete=models.CASCADE)
+
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        default_related_name = 'drivers'
+        ordering = ('last_name',)
+        verbose_name = 'Driver'
+        verbose_name_plural = 'Drivers'
+    
+    def natural_key(self):
+        return (self.first_name, self.last_name)
+    
+    @property
+    def name(self) -> str:
+        return f'{self.first_name} {self.last_name}'
+    
+    def __str__(self):
+        return self.name
+
+
 class ScheduleManager(models.Manager):
 
     def get_by_natural_key(self, year):
@@ -37,7 +95,7 @@ class Schedule(models.Model):
     class Meta:
         ordering = ('year',)
     
-    def get_by_natural_key(self):
+    def natural_key(self):
         return (self.year,)
     
     def __str__(self) -> str:
@@ -81,7 +139,7 @@ class Race(models.Model):
         if self.schedule.year != self.date.year:
             raise ValidationError('Schedule year must equal race year')
     
-    def get_by_natural_key(self):
+    def natural_key(self):
         return (self.date,)
     
     @property
@@ -99,6 +157,21 @@ class Race(models.Model):
     
     def __str__(self) -> str:
         return f'{self.track}'
+
+
+class RaceEntry(models.Model):
+
+    number = models.IntegerField()
+
+    driver = models.ForeignKey(RaceDriver, on_delete=models.PROTECT)
+
+    team = models.ForeignKey(RaceTeam, on_delete=models.PROTECT)
+
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
+
+    class Meta:
+        default_related_name = 'cars'
+        unique_together = ('race', 'driver')
 
 
 class TwitterUser(models.Model):
@@ -123,7 +196,9 @@ class RacePick(models.Model):
 
     user = models.ForeignKey(TwitterUser, on_delete=models.CASCADE)
 
-    race = models.ForeignKey(Race, on_delete=models.CASCADE)
+    entry = models.ForeignKey(RaceEntry, on_delete=models.CASCADE)
+
+    tweet_id = models.CharField(max_length=64)
 
     class Meta:
-        unique_together = ['race', 'user']
+        unique_together = ['entry', 'user']

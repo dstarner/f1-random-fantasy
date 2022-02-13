@@ -1,0 +1,30 @@
+- model: picks.raceteam
+  fields:
+    name: Mercedes
+- model: picks.raceteam
+  fields:
+    name: Red Bull
+- model: picks.raceteam
+  fields:
+    name: Ferrari
+- model: picks.raceteam
+  fields:
+    name: McLaren
+- model: picks.raceteam
+  fields:
+    name: Alpine
+- model: picks.raceteam
+  fields:
+    name: AlphaTauri
+- model: picks.raceteam
+  fields:
+    name: Aston Martin
+- model: picks.raceteam
+  fields:
+    name: Williams
+- model: picks.raceteam
+  fields:
+    name: Alfa Romeo
+- model: picks.raceteam
+  fields:
+    name: Haas

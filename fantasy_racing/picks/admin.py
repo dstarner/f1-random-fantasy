@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import FAQ, Race, Schedule, TwitterUser
+from .models import FAQ, Race, RaceDriver, RaceTeam, Schedule, TwitterUser
 
 
 admin.site.site_header = 'F1 Random Fantasy'
@@ -19,6 +19,20 @@ class FAQAdmin(admin.ModelAdmin):
 class ScheduleAdmin(admin.ModelAdmin):
 
     list_display = ('year',)
+
+
+@admin.register(RaceTeam)
+class RaceTeamAdmin(admin.ModelAdmin):
+
+    list_display = ('name',)
+    search_fields = ('name',)
+
+
+@admin.register(RaceDriver)
+class RaceDriverAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'default_team')
+    search_fields = ('first_name', 'last_name', 'default_team__name')
 
 
 @admin.register(Race)
