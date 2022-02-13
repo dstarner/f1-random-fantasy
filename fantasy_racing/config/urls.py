@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.shortcuts import render
-from django.urls import path, include
+from django.urls import path
 
 from fantasy_racing.picks import urls as picks_urls
 
@@ -24,8 +24,12 @@ def handler404(request, exception=None):
    return render(request,'404.html')
 
 
+def handler500(request, exception=None):
+   return render(request,'500.html')
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('_404', handler404, name='404'),
-    path('', include('social_django.urls', namespace='social'))
+    path('_500', handler500, name='500'),
 ] + picks_urls.urlpatterns

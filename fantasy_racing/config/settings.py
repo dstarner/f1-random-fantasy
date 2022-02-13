@@ -10,12 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-# Bit of monkey patching
-import django
-from django.utils.encoding import force_str
-django.utils.encoding.force_text = force_str
-
-
 import os
 from pathlib import Path
 
@@ -71,10 +65,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fantasy_racing.picks',
-
-    'social_django',
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.twitter.TwitterOAuth',
+)
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
 
 USE_WHITENOISE = get_bool_env('USE_WHITENOISE', False)
@@ -105,8 +100,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -162,8 +155,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-SOCIAL_AUTH_TWITTER_KEY = os.getenv('TWITTER_KEY', '')
-SOCIAL_AUTH_TWITTER_SECRET = os.getenv('TWITTER_SECRET', '')
+TWITTER_CLIENT_ID = os.getenv('TWITTER_KEY')
+TWITTER_CLIENT_SECRET = os.getenv('TWITTER_SECRET')
 
 
 # Static files (CSS, JavaScript, Images)
@@ -184,7 +177,7 @@ if USE_WHITENOISE:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOG_LEVEL = os.getenv('LOG_LEVEL', default='INFO')
+LOG_LEVEL = os.getenv('LOG_LEVEL', default='DEBUG' if DEBUG else 'INFO')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

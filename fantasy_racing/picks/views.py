@@ -1,8 +1,17 @@
+import logging
 import random
-from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+
+from django.conf import settings
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
+import tweepy
+
+from fantasy_racing.utils import twitter
 
 from .models import Race, Schedule
+
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -46,4 +55,34 @@ def standings(request, year=None):
 
 
 def play(request):
-    return
+    oauth = twitter.get_oauth_client()
+    auth_url = oauth.get_authorization_url(signin_with_twitter=True)
+    response = HttpResponseRedirect(auth_url)
+    request.session['request_token'] = oauth.request_token
+    logger.debug('%s', oauth.request_token)
+    return response
+
+
+def pick(request):
+    verifier = request.GET.get('oauth_verifier')
+    oauth = twitter.get_oauth_client()
+    token = request.session.get('request_token')
+	# remove the request token now we don't need it
+    request.session.delete('request_token')
+    oauth.request_token = token
+
+    logger.debug('%s -- %s', verifier, token)
+    try:
+        access_token, access_token_secret = oauth.get_access_token(verifier)
+    except (tweepy.TweepyException, tweepy.TwitterServerError):
+        logger.exception('Could not get access token for user')
+        return HttpResponse(status=500)
+
+    twitter_api = twitter.get_api(access_token, access_token_secret)
+    try:
+        user = twitter_api.get_me()
+    except (tweepy.TweepyException, tweepy.TwitterServerError):
+        logger.exception('Could not get user information')
+        return HttpResponse(status=500)
+    logger.info('%s', user)
+    return render(request, 'pick.html')

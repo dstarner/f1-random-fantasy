@@ -11,6 +11,7 @@ urlpatterns = [
     path('standings', views.standings, name='standings'),
     path('picks/<int:id>', views.picks, name='race_id'),
     path('picks', views.picks, name='race'),
+    path('pick', views.pick, name='pick'),
     path('play', views.play, name='play'),
     path('', views.index, name='index'),
 ]

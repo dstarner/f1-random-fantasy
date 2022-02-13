@@ -4,15 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
 gunicorn = "*"
 dj-database-url = "*"
 whitenoise = "*"
 psycopg2-binary = "*"
 "ruamel.yaml" = "*"
 pyyaml = "*"
-social-auth-app-django = "*"
 python-dotenv = "==0.19.2"
+django = "==3.2.8"
+tweepy = "*"
 
 [dev-packages]
 

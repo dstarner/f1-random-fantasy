@@ -1,0 +1,14 @@
+from django.conf import settings
+import tweepy
+
+
+def get_oauth_client():
+    callback = 'http://127.0.0.1:8000/pick'
+    return tweepy.OAuth1UserHandler(settings.TWITTER_CLIENT_ID, settings.TWITTER_CLIENT_SECRET, callback=callback)
+
+
+def get_api(access_token, access_token_secret) -> tweepy.Client:
+    return tweepy.Client(
+        consumer_key=settings.TWITTER_CLIENT_ID, consumer_secret=settings.TWITTER_CLIENT_SECRET,
+        access_token=access_token, access_token_secret=access_token_secret
+    )

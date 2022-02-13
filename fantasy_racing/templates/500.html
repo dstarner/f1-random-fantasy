@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% if title %}{{ title }} | {% endif %}F1 Random Fantasy Racing</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Dan Starner">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  </head>
+
+  <body class="plex-mono bg-purple light-yellow font-smoothing ma0 pa0">
+
+    <div class="cover w-100 vh-100 db bg-right bg-center-ns cover404" style="background-image:url({% static 'img/f1_404.webp' %});">
+        <div class="dt w-100" style="position: relative; z-index: 1000">
+            <div class="dtc vh-75 v-mid center tc pa3">
+                <h1 class="pa0 ma0 f1 f-subheadline-ns lh-solid domaine-display">Engine Failure</h1>
+                <p class="f2 f4">Take it back to the garage, something broke. What a disaster.</p>
+                <a href="{% url 'index' %}" class="f4 link dim light-pink b">F1 Random Fantasy Racing Home</a>
+            </div>
+        </div>
+    </div>
+
+  </body>
+</html>
