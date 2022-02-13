@@ -1,13 +1,14 @@
+from collections import namedtuple
 import logging
 import random
 
 from django.http import Http404, HttpRequest
-from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render, HttpResponseRedirect
 import tweepy
 
 from fantasy_racing.utils import twitter
 
-from .models import Race, Schedule, TwitterUser
+from .models import FAQ, Race, RacePick, Schedule, TwitterUser
 
 
 logger = logging.getLogger(__name__)
@@ -29,9 +30,7 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html', {
-        'faqs': [
-            {'question': 'How does it work?', 'answer': 'Each week you play F1 Random Fantasy Racing, you\'re randomly assigned a car number that corresponds to a car racing in the next Formula 1 race. After the race, you earn the number of points that car scored in the real race. The player with the highest number of points at the end of the season wins.'}
-        ]
+        'faqs': FAQ.objects.all(),
     })
 
 
@@ -53,8 +52,28 @@ def standings(request, year=None):
     return render(request, 'standings.html', {'schedule': schedule, 'title': f'{schedule.year} Standings'})
 
 
-def player(request, username=None):
-    return render(request, 'player.html')
+def player(request, username):
+    twitter_user = get_object_or_404(TwitterUser, username=username)
+    return render(request, 'player.html', {'user': twitter_user})
+
+
+def players(request):
+    users = TwitterUser.objects.all()
+    return render(request, 'players.html', {'users': users})
+
+
+def statistics(request):
+    SingleStat = namedtuple('SingleStat', field_names=('title', 'value'))
+    return render(request, 'statistics.html', {
+        'single_stats': [
+            SingleStat(title='Total Players', value=TwitterUser.objects.count()),
+            SingleStat(title='Total Picks', value=RacePick.objects.count()),
+            SingleStat(title='Most Common Pick', value='#-1'),
+            SingleStat(title='Winning Picks', value='-1'),
+            SingleStat(title='Total Races', value=Race.objects.viewable().count()),
+            SingleStat(title='Average Finish', value='-1.0'),
+        ]
+    })
 
 
 def play(request: HttpRequest):
@@ -69,6 +88,9 @@ def pick(request: HttpRequest):
     verifier = request.GET.get('oauth_verifier')
     oauth = twitter.get_oauth_client()
     token = request.session.get('request_token')
+    if not (token and verifier):
+        return redirect('index')
+
 	# remove the request token now we don't need it
     request.session.delete('request_token')
     oauth.request_token = token

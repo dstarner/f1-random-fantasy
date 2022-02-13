@@ -5,6 +5,23 @@ from django.db import models
 from django.utils import timezone
 
 
+class FAQ(models.Model):
+
+    question = models.CharField(max_length=256)
+
+    answer = models.TextField()
+
+    order = models.SmallIntegerField(default=0, help_text='Higher shows first')
+
+    class Meta:
+        ordering = ('-order',)
+        verbose_name = 'Frequently Asked Question'
+        verbose_name_plural = 'Frequently Asked Questions'
+
+    def __str__(self) -> str:
+        return self.question
+
+
 class ScheduleManager(models.Manager):
 
     def get_by_natural_key(self, year):
@@ -100,3 +117,13 @@ class TwitterUser(models.Model):
 
     def __str__(self) -> str:
         return f'@{self.username}'
+
+
+class RacePick(models.Model):
+
+    user = models.ForeignKey(TwitterUser, on_delete=models.CASCADE)
+
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['race', 'user']

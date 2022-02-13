@@ -1,0 +1,442 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="vhs-blur vhs-duration-4">
+
+    <h1 class="pb3 f3 f2-m f1-l domaine-display">Statistics</h1>
+    
+    <article class="pa3" data-name="slab-stat-small">
+        <div class="cf">
+            {% for stat in single_stats %}
+            <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+                <dd class="f6 fw4 ml0">{{ stat.title }}</dd>
+                <dd class="f3 f2-l ml0 domaine-display">{{ stat.value }}</dd>
+            </dl>
+            {% endfor %}
+        </div>
+    </article>
+    
+    
+    <h2 class="f4 f3-ns domaine-display">Most Common Picks</h2>
+    <div class="overflow-auto">
+        <table class="order-table f6 w-100 w-50-l mw8 center ba bn-ns b--light-purple" cellspacing="0">
+            <thead>
+                <tr class="tl f7 ttu tracked-l light-purple">
+                    <th class="pa2 nowrap normal">Pos.</th>
+                    <th class="pa2 nowrap normal">Pick</th>
+                    <th class="pa2 nowrap normal">Picks</th>
+                </tr>
+            </thead>
+            <tbody class="lh-copy">
+                                <tr class="tl stripe-dark">
+        <td class="pa2">1</td>
+        <td class="pa2">#2</td>
+        <td class="pa2">5,365</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">2</td>
+        <td class="pa2">#11</td>
+        <td class="pa2">5,328</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">3</td>
+        <td class="pa2">#1</td>
+        <td class="pa2">5,246</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">4</td>
+        <td class="pa2">#20</td>
+        <td class="pa2">5,232</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">5</td>
+        <td class="pa2">#6</td>
+        <td class="pa2">5,224</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">6</td>
+        <td class="pa2">#41</td>
+        <td class="pa2">5,202</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">7</td>
+        <td class="pa2">#4</td>
+        <td class="pa2">5,185</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">8</td>
+        <td class="pa2">#48</td>
+        <td class="pa2">5,157</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">9</td>
+        <td class="pa2">#22</td>
+        <td class="pa2">5,150</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">10</td>
+        <td class="pa2">#3</td>
+        <td class="pa2">5,116</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">11</td>
+        <td class="pa2">#18</td>
+        <td class="pa2">5,092</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">12</td>
+        <td class="pa2">#10</td>
+        <td class="pa2">5,067</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">13</td>
+        <td class="pa2">#24</td>
+        <td class="pa2">5,056</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">14</td>
+        <td class="pa2">#42</td>
+        <td class="pa2">5,026</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">15</td>
+        <td class="pa2">#14</td>
+        <td class="pa2">5,023</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">16</td>
+        <td class="pa2">#19</td>
+        <td class="pa2">4,998</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">17</td>
+        <td class="pa2">#17</td>
+        <td class="pa2">4,984</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">18</td>
+        <td class="pa2">#47</td>
+        <td class="pa2">4,875</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">19</td>
+        <td class="pa2">#43</td>
+        <td class="pa2">4,852</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">20</td>
+        <td class="pa2">#34</td>
+        <td class="pa2">4,824</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">21</td>
+        <td class="pa2">#15</td>
+        <td class="pa2">4,771</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">22</td>
+        <td class="pa2">#21</td>
+        <td class="pa2">4,769</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">23</td>
+        <td class="pa2">#38</td>
+        <td class="pa2">4,759</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">24</td>
+        <td class="pa2">#12</td>
+        <td class="pa2">4,486</td>
+        </tr>
+                        <tr class="tl stripe-dark">
+        <td class="pa2">25</td>
+        <td class="pa2">#9</td>
+        <td class="pa2">4,395</td>
+        </tr>
+                                    </tbody>
+        </table>
+    </div>
+    
+    <h2 class="f4 f3-ns domaine-display pt4">Most Starts</h2>
+    <div class="overflow-auto">
+        <table class="order-table f6 w-100 w-50-l mw8 center ba bn-ns b--light-purple" cellspacing="0">
+            <thead>
+                <tr class="tl f7 ttu tracked-l light-purple">
+                    <th class="pa2 nowrap normal">Pos.</th>
+                    <th class="pa2 nowrap normal">Player</th>
+                    <th class="pa2 nowrap normal">Starts</th>
+                </tr>
+            </thead>
+            <tbody class="lh-copy">
+                                <tr class="tl stripe-dark">
+        <td class="pa2">1</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/steveluvender">@steveluvender</a></span></td>
+        <td class="pa2">253</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">2</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/mjd4987">@mjd4987</a></span></td>
+        <td class="pa2">250</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">3</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/mearn">@mearn</a></span></td>
+        <td class="pa2">249</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">4</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/dgoodin24">@dgoodin24</a></span></td>
+        <td class="pa2">247</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">5</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/snackcakes">@snackcakes</a></span></td>
+        <td class="pa2">247</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">6</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/lfrapsd">@lfrapsd</a></span></td>
+        <td class="pa2">246</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">7</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/bhauff_549">@bhauff_549</a></span></td>
+        <td class="pa2">246</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">8</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/EricSturrock">@EricSturrock</a></span></td>
+        <td class="pa2">239</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">9</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/tarps3">@tarps3</a></span></td>
+        <td class="pa2">237</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">10</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/VeryFakePhil">@VeryFakePhil</a></span></td>
+        <td class="pa2">231</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">11</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/matzyjr">@matzyjr</a></span></td>
+        <td class="pa2">227</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">12</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/biverson64">@biverson64</a></span></td>
+        <td class="pa2">225</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">13</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/litl_e_fan">@litl_e_fan</a></span></td>
+        <td class="pa2">223</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">14</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/useless2764">@useless2764</a></span></td>
+        <td class="pa2">221</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">15</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/schmoe84">@schmoe84</a></span></td>
+        <td class="pa2">219</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">16</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/griffinhickman">@griffinhickman</a></span></td>
+        <td class="pa2">217</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">17</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/Jim_Udder">@Jim_Udder</a></span></td>
+        <td class="pa2">217</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">18</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/AxelRipper">@AxelRipper</a></span></td>
+        <td class="pa2">216</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">19</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/GriffinEldred">@GriffinEldred</a></span></td>
+        <td class="pa2">216</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">20</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/BrentSweet1">@BrentSweet1</a></span></td>
+        <td class="pa2">216</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">21</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/Ben_A_09">@Ben_A_09</a></span></td>
+        <td class="pa2">216</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">22</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/andrewcirko">@andrewcirko</a></span></td>
+        <td class="pa2">215</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">23</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/recjus85">@recjus85</a></span></td>
+        <td class="pa2">215</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">24</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/FHgrad99">@FHgrad99</a></span></td>
+        <td class="pa2">215</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">25</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/JimRouse96">@JimRouse96</a></span></td>
+        <td class="pa2">214</td>
+    </tr>
+                                </tbody>
+        </table>
+    </div>
+    
+    <h2 class="f4 f3-ns domaine-display pt4">Most Wins</h2>
+    <div class="overflow-auto">
+        <table class="order-table f6 w-100 w-50-l mw8 center ba bn-ns b--light-purple" cellspacing="0">
+            <thead>
+                <tr class="tl f7 ttu tracked-l light-purple">
+                    <th class="pa2 nowrap normal">Pos.</th>
+                    <th class="pa2 nowrap normal">Player</th>
+                    <th class="pa2 nowrap normal">Wins</th>
+                </tr>
+            </thead>
+            <tbody class="lh-copy">
+                                <tr class="tl stripe-dark">
+        <td class="pa2">1</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/dgoodin24">@dgoodin24</a></span></td>
+        <td class="pa2">13</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">2</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/MattTaliaferro">@MattTaliaferro</a></span></td>
+        <td class="pa2">13</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">3</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/Ben_A_09">@Ben_A_09</a></span></td>
+        <td class="pa2">12</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">4</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/brian_wiggins">@brian_wiggins</a></span></td>
+        <td class="pa2">11</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">5</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/nascargo19">@nascargo19</a></span></td>
+        <td class="pa2">11</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">6</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/DrunkenFunGuy">@DrunkenFunGuy</a></span></td>
+        <td class="pa2">10</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">7</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/TysonLaut23">@TysonLaut23</a></span></td>
+        <td class="pa2">10</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">8</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/bhauff_549">@bhauff_549</a></span></td>
+        <td class="pa2">10</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">9</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/JoeBuczek">@JoeBuczek</a></span></td>
+        <td class="pa2">10</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">10</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/RowdyFuller51">@RowdyFuller51</a></span></td>
+        <td class="pa2">10</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">11</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/mimmy104">@mimmy104</a></span></td>
+        <td class="pa2">10</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">12</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/Steamboat_TJ">@Steamboat_TJ</a></span></td>
+        <td class="pa2">9</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">13</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/Darcy4Harvick">@Darcy4Harvick</a></span></td>
+        <td class="pa2">9</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">14</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/MrMoron9989">@MrMoron9989</a></span></td>
+        <td class="pa2">9</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">15</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/lvracer8">@lvracer8</a></span></td>
+        <td class="pa2">9</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">16</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/schmoe84">@schmoe84</a></span></td>
+        <td class="pa2">9</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">17</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/LarrySpencer21">@LarrySpencer21</a></span></td>
+        <td class="pa2">9</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">18</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/oddjob626">@oddjob626</a></span></td>
+        <td class="pa2">9</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">19</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/jay_wilkins17">@jay_wilkins17</a></span></td>
+        <td class="pa2">9</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">20</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/mearn">@mearn</a></span></td>
+        <td class="pa2">8</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">21</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/jd_brisentine">@jd_brisentine</a></span></td>
+        <td class="pa2">8</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">22</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/recjus85">@recjus85</a></span></td>
+        <td class="pa2">8</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">23</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/bharden94">@bharden94</a></span></td>
+        <td class="pa2">8</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">24</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/Joe_Daddy_">@Joe_Daddy_</a></span></td>
+        <td class="pa2">8</td>
+    </tr>
+                    <tr class="tl stripe-dark">
+        <td class="pa2">25</td>
+        <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="player/Briancullather">@Briancullather</a></span></td>
+        <td class="pa2">8</td>
+    </tr>
+                                </tbody>
+        </table>
+    </div>
+    <p class="f7 light-purple">Ties broken by number of Top 5s, Top 10s</p>
+
+</div>
+{% endblock %}

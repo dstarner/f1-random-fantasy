@@ -65,6 +65,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fantasy_racing.picks',
+
+    'markdownify.apps.MarkdownifyConfig',
 ]
 
 

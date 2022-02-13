@@ -1,0 +1,87 @@
+- model: picks.faq
+  pk: 1
+  fields:
+    question: How does it work?
+    answer: Each week you play F1 Random Fantasy Racing, you're randomly assigned
+      a car number that corresponds to a car racing in the next [Formula 1](https://www.formula1.com/)
+      race. After the race, you earn the number of points that the car scored in the
+      real race. The player with the highest number of points at the end of the season
+      wins.
+    order: 10000
+
+- model: picks.faq
+  pk: 2
+  fields:
+    question: So I just click the button and that's it?
+    answer: Yes. There is no action required once you've clicked the giant blue button that makes
+      your picks. When the race is over, you will be awarded points. Yes. You need to have a Twitter account to play.
+      Fortunately, you can create one of those for free on [Twitter.com](https://twitter.com).
+    order: 9900
+
+- model: picks.faq
+  pk: 3
+  fields:
+    question: How often do I need to make a pick?
+    answer: You get one pick each race during the [Formula 1 season](https://www.formula1.com/en/racing/2022.html)
+      (March through November). You will need to place a new pick each race. Many people place their picks
+      immediately following the latest race so they don't forget to make a pick for the next week.
+    order: 9800
+
+- model: picks.faq
+  pk: 4
+  fields:
+    question: Do I need to know about Formula 1 in order to play?
+    answer: No. Anyone with a Twitter account can play, even if you don't like Formula 1. But we recommend you
+      watch [Drive to Survive](https://www.netflix.com/title/80204890) on Netflix because its _very_ good.
+    order: 9700
+
+- model: picks.faq
+  pk: 5
+  fields:
+    question: Do I have to sign up for something?
+    answer: Nope. There's no registration required. In fact, there's no signing up whatsoever if you have a
+      Twitter account. You just press the “Tweet My Pick” button on a race week and you're entered.
+    order: 9600
+
+- model: picks.faq
+  pk: 6
+  fields:
+    question: How much does it cost to play Random Fantasy Racing?
+    answer: It is free to play. Also, there are no ads. Or creepy data collection tactics. Or any other
+      kind of BS. Unlike attending a real Formula 1 race, it won't cost you your life savings!
+    order: 9500
+
+- model: picks.faq
+  pk: 7
+  fields:
+    question: How much does it cost to play Random Fantasy Racing?
+    answer: It is free to play. Also, there are no ads. Or creepy data collection tactics. Or any other
+      kind of BS. Unlike attending a real Formula 1 race, it won't cost you your life savings!
+    order: 9400
+
+- model: picks.faq
+  pk: 8
+  fields:
+    question: Does the Random Fantasy Racing Twitter app do things that I wouldn't like?
+    answer: No. When you approve the app to make your pick, the only thing that happens is your pick
+      is tweeted and saved into this website. It doesn't make your account tweet more things, it
+      doesn't change your bio, it doesn't make you follow anyone, and I can't read your DMs (nor
+      do I want to. BORING!). It only tweets exactly one time when you press the giant blue button
+      on f1randomfantasyracing.com to make a pick for each race.
+    order: 9300
+
+- model: picks.faq
+  pk: 9
+  fields:
+    question: Does Random Fantasy Racing collect my email address and give it to weirdos?
+    answer: No. Nobody is ever exposed to your email address and it is not collected. I don't want to email you anyway.
+    order: 9200
+
+- model: picks.faq
+  pk: 10
+  fields:
+    question: What happens if I change my Twitter handle?
+    answer: Don't worry about it! We identity you internally using your accounts Twitter ID, not the username,
+      so feel free to change the username to _whatever_ you like, just remember that it will show up in the
+      leaderboards!
+    order: 9100

@@ -1,0 +1,82 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="vhs-blur vhs-duration-4">
+
+    <h1 class="pb3 f3 f2-m f1-l domaine-display">Players &amp; Career Stats</h1>
+    <input type="search" class="bg-black-10 bn f6 bb bw1 b--light-purple near-white light-table-filter pa2 mb4 plex-mono" data-table="order-table" placeholder="Search players&hellip;">
+
+    <div class="overflow-auto">
+        <table class="order-table f6 f5-l w-100 mw8 center ba bn-ns b--light-purple" cellspacing="0">
+            <thead>
+                <tr class="tl f7 ttu tracked-l light-purple">
+                    <th class="pa2 nowrap normal">No.</th>
+                    <th class="pa2 nowrap normal"><a href="players/username/asc" class="link dim light-purple ">Player</a></th>
+                    <th class="pa2 nowrap normal"><a href="players/starts/desc" class="link dim light-purple bb bw1">Starts</a></th>
+                    <th class="pa2 nowrap normal"><a href="players/wins/desc" class="link dim light-purple ">Wins</a></th>
+                    <th class="pa2 nowrap normal"><a href="players/top5/desc" class="link dim light-purple ">Top 5</a></th>
+                    <th class="pa2 nowrap normal"><a href="players/top10/desc" class="link dim light-purple ">Top 10</a></th>
+                    <th class="pa2 nowrap normal"><a href="players/avgfin/asc" class="link dim light-purple ">Avg. Fin.</a></th>
+                </tr>
+            </thead>
+            <tbody class="lh-copy">
+                {% for user in users %}
+                <tr class="tl stripe-dark">
+                    <td class="pa2">{{ forloop.counter }}</td>
+                    <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="{% url 'player' username=user.username %}">{{ user }}</a></span></td>
+                    <td class="pa2">0</td>
+                    <td class="pa2">0</td>
+                    <td class="pa2">0</td>
+                    <td class="pa2">0</td>
+                    <td class="pa2">0</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <p class="f7 ttu tracked light-purple">Statistics only include points-paying races.</p>
+</div>
+
+<script>
+	(function(document) {
+		'use strict';
+	
+		var LightTableFilter = (function(Arr) {
+	
+			var _input;
+	
+			function _onInputEvent(e) {
+				_input = e.target;
+				var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+				Arr.forEach.call(tables, function(table) {
+					Arr.forEach.call(table.tBodies, function(tbody) {
+						Arr.forEach.call(tbody.rows, _filter);
+					});
+				});
+			}
+	
+			function _filter(row) {
+				var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+				row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+			}
+	
+			return {
+				init: function() {
+					var inputs = document.getElementsByClassName('light-table-filter');
+					Arr.forEach.call(inputs, function(input) {
+						input.oninput = _onInputEvent;
+					});
+				}
+			};
+		})(Array.prototype);
+	
+		document.addEventListener('readystatechange', function() {
+			if (document.readyState === 'complete') {
+				LightTableFilter.init();
+			}
+		});
+	
+	})(document);
+</script>
+{% endblock %}

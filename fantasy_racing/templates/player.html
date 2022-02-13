@@ -1,4 +1,87 @@
 {% extends "_base.html" %}
 
 {% block content %}
+<div class="vhs-blur vhs-duration-4">
+	
+    <a class="link grow light-pink" href="https://twitter.com/{{ user.username }}" target="_blank"><img src="https://pbs.twimg.com/profile_images/1445401963399634948/ZNHMcrPp_normal.jpg" class="br-100 w3 h3 grow ba b--light-pink bw1 pa1" alt="{{ user.username }}"></a>
+    
+<h1 class="pb3 f3 f2-m f1-l domaine-display lh-solid">Career Statistics for <a class="link dim light-pink hide-child nowrap" href="http://twitter.com/{{ user.username }}" target="_blank">{{ user }} <span class="light-purple child absolute">&rarr;</span></a></h1>	
+
+
+<p class="f6 ttu tracked light-purple pb3">Picking since <a href="https://randomfantasyracing.com/picks/288" class="link dim light-pink">Martinsville, 2021</a></p>
+
+<div class="overflow-auto">
+<table class="f6 w-100 mw8 center ba bn-ns b--light-purple" cellspacing="0">
+<thead>
+<tr class="tl f7 ttu tracked-l light-purple">
+<th class="pa2 nowrap normal">Season</th>
+<th class="pa2 nowrap normal">Points</th>
+<th class="pa2 nowrap normal">Starts</th>
+<th class="pa2 nowrap normal">Wins</th>
+<th class="pa2 nowrap normal">Top 5</th>
+<th class="pa2 nowrap normal">Top 10</th>
+<th class="pa2 nowrap normal">Avg. Fin.</th>
+</tr>
+</thead>
+<tbody class="lh-copy">
+<tr class="tl stripe-dark">
+<td class="pa2"><a href="https://randomfantasyracing.com/player/dan_starner/2021" class="link dim light-pink">2021</a></td>
+<td class="pa2">53</td>
+<td class="pa2">2</td>
+<td class="pa2">0</td>
+<td class="pa2">0</td>
+<td class="pa2">0</td>
+<td class="pa2">11.5</td>
+</tr>
+<tr class="tl stripe-dark">
+<td class="pa2"><a href="https://randomfantasyracing.com/player/dan_starner/2022" class="link dim light-pink">2022</a></td>
+<td class="pa2">0</td>
+<td class="pa2">1</td>
+<td class="pa2">0</td>
+<td class="pa2">0</td>
+<td class="pa2">0</td>
+<td class="pa2">13.0</td>
+</tr>
+</tbody></table></div>
+<div class="pb3">
+<article class="pa3 pa5-ns" data-name="slab-stat-small">
+<div class="cf">
+<dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+<dd class="f6 fw4 ml0">Starts</dd>
+<dd class="f3 f2-l ml0 domaine-display">3</dd>
+</dl>
+<dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+<dd class="f6 fw4 ml0">Points</dd>
+<dd class="f3 f2-l ml0 domaine-display">53</dd>
+</dl>
+<dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+<dd class="f6 fw4 ml0">Wins</dd>
+<dd class="f3 f2-l ml0 domaine-display">0</dd>
+</dl>
+<dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+<dd class="f6 fw4 ml0">Top 5s</dd>
+<dd class="f3 f2-l ml0 domaine-display">0</dd>
+</dl>
+<dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+<dd class="f6 fw4 ml0">Top 10s</dd>
+<dd class="f3 f2-l ml0 domaine-display">0</dd>
+</dl>
+<dl class="fl fn-l w-50 dib-l w-auto-l lh-title">
+<dd class="f6 fw4 ml0">Avg. Fin.</dd>
+<dd class="f3 f2-l ml0 domaine-display">12.0</dd>
+</dl>
+</div>
+</article>
+</div>
+
+<div class="mt4">
+<ul class="list pv4 ph0 ma0 nowrap overflow-x-auto">
+<li class="dib mr1 mb2"><a href="https://randomfantasyracing.com/player/dan_starner" class="f6 f5-ns db pa2 link dim bg-light-pink purple ba b--light-purple">Career</a></li>
+<li class="dib mr1 mb2"><a href="https://randomfantasyracing.com/player/dan_starner&season=2021" class="f6 f5-ns db pa2 link dim light-pink ba b--light-purple">2021</a></li><li class="dib mr1 mb2"><a href="https://randomfantasyracing.com/player/dan_starner&season=2022" class="f6 f5-ns db pa2 link dim light-pink ba b--light-purple">2022</a></li>	  				</ul>
+</div>
+        
+<div class="pb3">
+<h2 class="f4 f3-m f2-l domaine-display"><a href="{% url 'players' %}" class="link dim light-pink">&larr; All Players</a></h2>
+</div>
+</div>
 {% endblock %}

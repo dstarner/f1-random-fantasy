@@ -1,11 +1,18 @@
 from django.contrib import admin
 
-from .models import Race, Schedule, TwitterUser
+from .models import FAQ, Race, Schedule, TwitterUser
 
 
 admin.site.site_header = 'F1 Random Fantasy'
 admin.site.site_title = 'F1 Random Fantasy'
 admin.site.index_title = 'F1 Random Fantasy Portal'
+
+
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+
+    list_display = ('question',)
+    search_fields = ('question', 'answer')
 
 
 @admin.register(Schedule)
