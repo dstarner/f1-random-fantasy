@@ -3,7 +3,7 @@ import tweepy
 
 
 def get_oauth_client():
-    callback = 'http://127.0.0.1:8000/pick'
+    callback = settings.TWITTER_CALLBACK
     return tweepy.OAuth1UserHandler(settings.TWITTER_CLIENT_ID, settings.TWITTER_CLIENT_SECRET, callback=callback)
 
 

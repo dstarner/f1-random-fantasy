@@ -71,18 +71,9 @@ def pick(request):
     request.session.delete('request_token')
     oauth.request_token = token
 
-    logger.debug('%s -- %s', verifier, token)
-    try:
-        access_token, access_token_secret = oauth.get_access_token(verifier)
-    except (tweepy.TweepyException, tweepy.TwitterServerError):
-        logger.exception('Could not get access token for user')
-        return HttpResponse(status=500)
+    access_token, access_token_secret = oauth.get_access_token(verifier)
 
     twitter_api = twitter.get_api(access_token, access_token_secret)
-    try:
-        user = twitter_api.get_me()
-    except (tweepy.TweepyException, tweepy.TwitterServerError):
-        logger.exception('Could not get user information')
-        return HttpResponse(status=500)
+    user = twitter_api.get_me()
     logger.info('%s', user)
     return render(request, 'pick.html')

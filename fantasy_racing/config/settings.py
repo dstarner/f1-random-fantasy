@@ -67,10 +67,6 @@ INSTALLED_APPS = [
     'fantasy_racing.picks',
 ]
 
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.twitter.TwitterOAuth',
-)
-SOCIAL_AUTH_JSONFIELD_ENABLED = True
 
 USE_WHITENOISE = get_bool_env('USE_WHITENOISE', False)
 
@@ -157,6 +153,7 @@ USE_TZ = True
 
 TWITTER_CLIENT_ID = os.getenv('TWITTER_KEY')
 TWITTER_CLIENT_SECRET = os.getenv('TWITTER_SECRET')
+TWITTER_CALLBACK = os.getenv('TWITTER_CALLBACK', 'http://127.0.0.1:8000/pick')
 
 
 # Static files (CSS, JavaScript, Images)
