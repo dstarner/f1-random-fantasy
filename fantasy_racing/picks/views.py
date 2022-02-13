@@ -8,7 +8,7 @@ import tweepy
 
 from fantasy_racing.utils import twitter
 
-from .models import FAQ, Race, RacePick, Schedule, TwitterUser
+from .models import FAQ, Race, RaceDriver, RacePick, Schedule, TwitterUser
 
 
 logger = logging.getLogger(__name__)
@@ -44,7 +44,9 @@ def picks(request, id=None):
     race = Race.objects.current() if id is None else get_object_or_404(Race, id=id)
     if not race:
         raise Http404
-    return render(request, 'picks.html', {'race': race, 'title': race.track})
+    
+    picks = RacePick.objects.filter(race=race).all()
+    return render(request, 'picks.html', {'race': race, 'title': race.track, 'picks': picks})
 
 
 def standings(request, year=None):
@@ -114,4 +116,13 @@ def pick(request: HttpRequest):
     if not race:
         raise Http404
 
-    return render(request, 'pick.html', {'race': race, 'user': twitter_user})
+    random_driver: RaceDriver = RaceDriver.objects.random()
+    pick, created = RacePick.objects.get_or_create(user=twitter_user, race=race, defaults=dict(
+        driver=random_driver,
+        tweet_id=1490491780520943620
+    ))
+    if not created:
+        logger.info('Created %s', pick)
+
+    context = {'race': race, 'user': twitter_user, 'pick': pick, 'created': created}
+    return render(request, 'pick.html', context)

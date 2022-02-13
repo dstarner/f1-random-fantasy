@@ -13,21 +13,23 @@
         <table class="f6 f5-l w-100 mw8 center ba bn-ns b--light-purple" cellspacing="0">
             <thead>
                 <tr class="tl f7 ttu tracked-l light-purple">
-                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/time/asc" class="link dim light-purple bb bw1">No.</a></th>
-                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/pick/asc" class="link dim light-purple ">Pick</a></th>
-                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/username/asc" class="link dim light-purple ">Player</a></th>
-                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/position/asc" class="link dim light-purple ">Pos.</a></th>
-                    <th class="pa2 nowrap normal"><a href="https://randomfantasyracing.com/picks/291/points/desc" class="link dim light-purple ">Pts.</a></th>
+                    <th class="pa2 nowrap normal"><a href="#" class="link dim light-purple bb bw1">No.</a></th>
+                    <th class="pa2 nowrap normal"><a href="#" class="link dim light-purple ">Pick</a></th>
+                    <th class="pa2 nowrap normal"><a href="#" class="link dim light-purple ">Player</a></th>
+                    <th class="pa2 nowrap normal"><a href="#" class="link dim light-purple ">Pos.</a></th>
+                    <th class="pa2 nowrap normal"><a href="#" class="link dim light-purple ">Pts.</a></th>
                 </tr>
-                </thead>
+            </thead>
             <tbody class="lh-copy">
+                {% for pick in picks %}
                 <tr class="tl stripe-dark">
-                    <td class="pa2">1</td>
-                    <td class="pa2"><a class="link dim light-pink hide-child nowrap" href="https://twitter.com/gokyhoe/status/1487870624664064008" target="_blank" title="2022-01-30 07:29 PM">#21 <span class="light-purple child">&rarr;</span></a></td>
-                    <td class="pa2"><a class="link dim light-pink" href="https://randomfantasyracing.com/player/gokyhoe/">@gokyhoe</a></td>
-                    <td class="pa2">12</td>
-                    <td class="pa2">0</td>
+                    <td class="pa2">{{ forloop.counter }}</td>
+                    <td class="pa2"><a class="link dim light-pink hide-child nowrap" href="https://twitter.com/{{ pick.user.username }}/status/{{ pick.tweet_id }}" target="_blank" title="2022-01-30 07:29 PM">#{{ pick.driver.default_number }} {{ pick.driver.last_name }}<span class="light-purple child">&rarr;</span></a></td>
+                    <td class="pa2"><a class="link dim light-pink" href="{% url 'player' username=pick.user.username %}">{{ pick.user }}</a></td>
+                    <td class="pa2">-</td>
+                    <td class="pa2">-</td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

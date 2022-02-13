@@ -1,3 +1,5 @@
+import random
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
@@ -48,6 +50,10 @@ class RaceDriverManager(models.Manager):
 
     def get_by_natural_key(self, first_name, last_name):
         return self.get(first_name=first_name, last_name=last_name)
+    
+    def random(self):
+        active_driver_ids = list(self.filter(is_active=True).values_list('id', flat=True))
+        return self.get(id=random.choice(active_driver_ids))
 
 
 class RaceDriver(models.Model):
@@ -61,6 +67,8 @@ class RaceDriver(models.Model):
     default_team = models.ForeignKey(RaceTeam, on_delete=models.CASCADE)
 
     is_active = models.BooleanField(default=True)
+
+    objects = RaceDriverManager()
 
     class Meta:
         default_related_name = 'drivers'
