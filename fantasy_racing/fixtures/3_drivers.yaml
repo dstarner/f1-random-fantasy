@@ -1,0 +1,160 @@
+- model: picks.racedriver
+  fields:
+    first_name: Lewis
+    last_name: Hamilton
+    default_number: 44
+    default_team:
+    - Mercedes
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: George
+    last_name: Russell
+    default_number: 63
+    default_team:
+    - Mercedes
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Max
+    last_name: Verstappen
+    default_number: 1
+    default_team:
+    - Red Bull
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Sergio
+    last_name: Perez
+    default_number: 11
+    default_team:
+    - Red Bull
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Charles
+    last_name: Leclerc
+    default_number: 16
+    default_team:
+    - Ferrari
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Carlos
+    last_name: Sainz
+    default_number: 55
+    default_team:
+    - Ferrari
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Lando
+    last_name: Norris
+    default_number: 3
+    default_team:
+    - McLaren
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Daniel
+    last_name: Ricciardo
+    default_number: 4
+    default_team:
+    - McLaren
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Fernando
+    last_name: Alonso
+    default_number: 14
+    default_team:
+    - Alpine
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Esteban
+    last_name: Ocon
+    default_number: 31
+    default_team:
+    - Alpine
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Pierre
+    last_name: Gasly
+    default_number: 10
+    default_team:
+    - AlphaTauri
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Yuki
+    last_name: Tsunoda
+    default_number: 22
+    default_team:
+    - AlphaTauri
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Sebastian
+    last_name: Vettel
+    default_number: 5
+    default_team:
+    - Aston Martin
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Lance
+    last_name: Stroll
+    default_number: 18
+    default_team:
+    - Aston Martin
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Nicholas
+    last_name: Latifi
+    default_number: 6
+    default_team:
+    - Williams
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Alex
+    last_name: Albon
+    default_number: 23
+    default_team:
+    - Williams
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Valtteri
+    last_name: Bottas
+    default_number: 77
+    default_team:
+    - Alfa Romeo
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Guanyu
+    last_name: Zhou
+    default_number: 24
+    default_team:
+    - Alfa Romeo
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Mick
+    last_name: Schumacher
+    default_number: 47
+    default_team:
+    - Haas
+    is_active: true
+- model: picks.racedriver
+  fields:
+    first_name: Nikita
+    last_name: Mazepin
+    default_number: 9
+    default_team:
+    - Haas
+    is_active: true
