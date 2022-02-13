@@ -82,3 +82,15 @@ class Race(models.Model):
     
     def __str__(self) -> str:
         return f'{self.track}'
+
+
+class TwitterUser(models.Model):
+
+    id = models.PositiveIntegerField(primary_key=True, unique=True, verbose_name='Twitter ID')
+
+    username = models.CharField(max_length=64, unique=True)
+
+    name = models.CharField(max_length=128)
+
+    def __str__(self) -> str:
+        return f'@{self.username}'

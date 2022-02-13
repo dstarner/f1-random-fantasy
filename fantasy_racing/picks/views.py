@@ -1,15 +1,13 @@
 import logging
 import random
 
-from django.conf import settings
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
-import requests
 import tweepy
 
 from fantasy_racing.utils import twitter
 
-from .models import Race, Schedule
+from .models import Race, Schedule, TwitterUser
 
 
 logger = logging.getLogger(__name__)
@@ -74,9 +72,14 @@ def pick(request: HttpRequest):
     access_token, access_token_secret = oauth.get_access_token(verifier)
     client = twitter.get_client(access_token, access_token_secret)
     try:
-        user = client.get_me()
+        user_response = client.get_me()
+        user = user_response.data
     except tweepy.Forbidden as e:
-        user = None
         logger.exception('unable to get user info: %s', e.response.json())
-    logger.info(user)
+        raise e
+    
+    twitter_user, created = TwitterUser.objects \
+                                       .get_or_create(id=user.id, defaults=dict(username=user.username, name=user.name))
+    if created:
+        logger.info('%s just made their first pick!', twitter_user)
     return render(request, 'pick.html')
