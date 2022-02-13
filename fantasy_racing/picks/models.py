@@ -92,6 +92,8 @@ class TwitterUser(models.Model):
 
     name = models.CharField(max_length=128)
 
+    profile_img = models.URLField()
+
     class Meta:
         verbose_name = 'Twitter User'
         verbose_name_plural = 'Twitter Users'

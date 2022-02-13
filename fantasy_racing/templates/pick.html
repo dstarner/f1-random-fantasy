@@ -1,4 +1,15 @@
 {% extends "_base.html" %}
 
 {% block content %}
+<div class="vhs-blur vhs-duration-4">
+    <p class="f4 f3-ns">You&rsquo;ve already made a pick for <a href="{% url 'race' %}" class="link dim light-pink nowrap">{{ race.track }}</a>, <a href="{% url 'player' username=user.username %}" class="link dim light-pink">{{ user }}</a>!
+    <p class="f4 f3-ns">You picked:</p>
+          <p class="f-headline lh-solid pv2 pv3-ns ma0 domaine-display"><sup>#</sup>5</p>
+          <p class="f6">Your pick was already <a class="link dim light-pink" href="https://twitter.com/dan_starner/status/1490491780520943620" target="_blank">tweeted</a>.</p>
+          <p class="f6 ma0 pt3">Good luck! Check back after the race to see if you made a good pick.</p>
+          
+<p class="f6 ma0 pt5">Check out who everybody else picked:</p>
+<p class="ma0 pt2"><a class="f5 br2 bg-light-purple white pv2 ph3 link dim dib" href="{% url 'race' %}">This Week&rsquo;s Picks</a></p>
+
+</div>
 {% endblock %}

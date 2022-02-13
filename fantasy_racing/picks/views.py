@@ -53,6 +53,10 @@ def standings(request, year=None):
     return render(request, 'standings.html', {'schedule': schedule, 'title': f'{schedule.year} Standings'})
 
 
+def player(request, username=None):
+    return render(request, 'player.html')
+
+
 def play(request: HttpRequest):
     oauth = twitter.get_oauth_client()
     auth_url = oauth.get_authorization_url(signin_with_twitter=True)
@@ -72,14 +76,19 @@ def pick(request: HttpRequest):
     access_token, access_token_secret = oauth.get_access_token(verifier)
     client = twitter.get_client(access_token, access_token_secret)
     try:
-        user_response = client.get_me()
+        user_response = client.get_me(user_fields=['profile_image_url', 'username', 'id', 'name'])
         user = user_response.data
     except tweepy.Forbidden as e:
         logger.exception('unable to get user info: %s', e.response.json())
         raise e
     
-    twitter_user, created = TwitterUser.objects \
-                                       .get_or_create(id=user.id, defaults=dict(username=user.username, name=user.name))
+    twitter_user, created = TwitterUser.objects.get_or_create(id=user.id, defaults=dict(
+        username=user.username, name=user.name, profile_image_url=user.profile_image_url,
+    ))
     if created:
-        logger.info('%s just made their first pick!', twitter_user)
-    return render(request, 'pick.html')
+        logger.info('%s just joined for the first time!', twitter_user)
+    
+    race = Race.objects.current()
+    if not race:
+        raise Http404
+    return render(request, 'pick.html', {'race': race, 'user': twitter_user})

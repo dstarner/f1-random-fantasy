@@ -12,6 +12,7 @@ urlpatterns = [
     path('picks/<int:id>', views.picks, name='race_id'),
     path('picks', views.picks, name='race'),
     path('pick', views.pick, name='pick'),
+    path('player/<str:username>', views.player, name='player'),
     path('play', views.play, name='play'),
     path('', views.index, name='index'),
 ]
