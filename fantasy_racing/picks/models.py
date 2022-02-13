@@ -156,7 +156,7 @@ class Race(models.Model):
         return race_ids.index(self.id)
     
     def __str__(self) -> str:
-        return f'{self.track}'
+        return f'{self.track} in {self.schedule.year}'
 
 
 class RaceEntry(models.Model):
@@ -172,6 +172,9 @@ class RaceEntry(models.Model):
     class Meta:
         default_related_name = 'cars'
         unique_together = ('race', 'driver')
+    
+    def __str__(self) -> str:
+        return f'{self.driver} @ {self.race}'
 
 
 class TwitterUser(models.Model):
@@ -202,3 +205,6 @@ class RacePick(models.Model):
 
     class Meta:
         unique_together = ['entry', 'user']
+    
+    def __str__(self):
+        return f"{self.user}'s pick for {self.entry}"

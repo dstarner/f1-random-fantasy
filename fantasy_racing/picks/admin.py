@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import FAQ, Race, RaceDriver, RaceTeam, Schedule, TwitterUser
+from .models import FAQ, Race, RaceDriver, RaceEntry, RacePick, RaceTeam, Schedule, TwitterUser
 
 
 admin.site.site_header = 'F1 Random Fantasy'
@@ -39,6 +39,26 @@ class RaceDriverAdmin(admin.ModelAdmin):
 class RaceAdmin(admin.ModelAdmin):
 
     list_display = ('track', 'date', 'is_viewable', 'is_current')
+
+
+@admin.register(RaceEntry)
+class RaceEntryAdmin(admin.ModelAdmin):
+
+    list_display = ('race', 'driver', 'team')
+
+
+@admin.register(RacePick)
+class RacePickAdmin(admin.ModelAdmin):
+
+    list_display = ('user', 'track', 'driver')
+
+    @admin.display(description='Track', ordering='entry__race__track')
+    def track(self, obj):
+        return obj.entry.race.track
+    
+    @admin.display(description='Driver', ordering='entry__driver__last_name')
+    def driver(self, obj):
+        return obj.entry.driver.name
 
 
 @admin.register(TwitterUser)

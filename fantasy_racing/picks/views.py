@@ -105,7 +105,7 @@ def pick(request: HttpRequest):
         raise e
     
     twitter_user, created = TwitterUser.objects.get_or_create(id=user.id, defaults=dict(
-        username=user.username, name=user.name, profile_image_url=user.profile_image_url,
+        username=user.username, name=user.name, profile_img=user.profile_image_url,
     ))
     if created:
         logger.info('%s just joined for the first time!', twitter_user)
