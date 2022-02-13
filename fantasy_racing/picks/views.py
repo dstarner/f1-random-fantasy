@@ -113,4 +113,5 @@ def pick(request: HttpRequest):
     race = Race.objects.current()
     if not race:
         raise Http404
+
     return render(request, 'pick.html', {'race': race, 'user': twitter_user})

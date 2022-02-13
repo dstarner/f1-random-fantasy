@@ -1,8 +1,7 @@
-from datetime import datetime
-
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
+from django_extensions.db.fields import CreationDateTimeField
 
 
 class FAQ(models.Model):
@@ -159,24 +158,6 @@ class Race(models.Model):
         return f'{self.track} in {self.schedule.year}'
 
 
-class RaceEntry(models.Model):
-
-    number = models.IntegerField()
-
-    driver = models.ForeignKey(RaceDriver, on_delete=models.PROTECT)
-
-    team = models.ForeignKey(RaceTeam, on_delete=models.PROTECT)
-
-    race = models.ForeignKey(Race, on_delete=models.CASCADE)
-
-    class Meta:
-        default_related_name = 'cars'
-        unique_together = ('race', 'driver')
-    
-    def __str__(self) -> str:
-        return f'{self.driver} @ {self.race}'
-
-
 class TwitterUser(models.Model):
 
     id = models.PositiveIntegerField(primary_key=True, unique=True, verbose_name='Twitter ID')
@@ -199,12 +180,20 @@ class RacePick(models.Model):
 
     user = models.ForeignKey(TwitterUser, on_delete=models.CASCADE)
 
-    entry = models.ForeignKey(RaceEntry, on_delete=models.CASCADE)
+    driver = models.ForeignKey(RaceDriver, on_delete=models.PROTECT)
+
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
 
     tweet_id = models.CharField(max_length=64)
 
+    timestamp = CreationDateTimeField()
+
     class Meta:
-        unique_together = ['entry', 'user']
+        unique_together = ['race', 'user']
+        ordering = ('timestamp',)
+        verbose_name = 'Race Pick'
+        verbose_name_plural = 'Race Picks'
     
     def __str__(self):
-        return f"{self.user}'s pick for {self.entry}"
+        return f"{self.user}'s pick for {self.race}"
+

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="vhs-blur vhs-duration-4">
 	
-    <a class="link grow light-pink" href="https://twitter.com/{{ user.username }}" target="_blank"><img src="https://pbs.twimg.com/profile_images/1445401963399634948/ZNHMcrPp_normal.jpg" class="br-100 w3 h3 grow ba b--light-pink bw1 pa1" alt="{{ user.username }}"></a>
+    <a class="link grow light-pink" href="https://twitter.com/{{ user.username }}" target="_blank"><img src="{{ user.profile_img }}" class="br-100 w3 h3 grow ba b--light-pink bw1 pa1" alt="{{ user.username }}"></a>
     
 <h1 class="pb3 f3 f2-m f1-l domaine-display lh-solid">Career Statistics for <a class="link dim light-pink hide-child nowrap" href="http://twitter.com/{{ user.username }}" target="_blank">{{ user }} <span class="light-purple child absolute">&rarr;</span></a></h1>	
 

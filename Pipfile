@@ -15,6 +15,7 @@ django = "==3.2.8"
 tweepy = "*"
 requests = "*"
 django-markdownify = "*"
+django-extensions = "*"
 
 [dev-packages]
 
