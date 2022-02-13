@@ -3,6 +3,11 @@ from django.contrib import admin
 from .models import Race, Schedule, TwitterUser
 
 
+admin.site.site_header = 'F1 Random Fantasy'
+admin.site.site_title = 'F1 Random Fantasy'
+admin.site.index_title = 'F1 Random Fantasy Portal'
+
+
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
 

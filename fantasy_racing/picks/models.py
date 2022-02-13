@@ -92,5 +92,9 @@ class TwitterUser(models.Model):
 
     name = models.CharField(max_length=128)
 
+    class Meta:
+        verbose_name = 'Twitter User'
+        verbose_name_plural = 'Twitter Users'
+
     def __str__(self) -> str:
         return f'@{self.username}'
