@@ -40,5 +40,10 @@ def picks(request, id=None):
     return render(request, 'picks.html', {'race': race, 'title': race.track})
 
 
+def standings(request, year=None):
+    schedule = Schedule.objects.last() if year is None else get_object_or_404(Schedule, year=year)
+    return render(request, 'standings.html', {'schedule': schedule, 'title': f'{schedule.year} Standings'})
+
+
 def play(request):
     return

@@ -10,6 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+# Bit of monkey patching
+import django
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str
+
+
 import os
 from pathlib import Path
 
@@ -33,7 +39,26 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-k#yg$nf$5d8&3v==_d@a(=fqh!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = get_bool_env('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', '*').split(',')]
+
+SECURE_SSL_REDIRECT = get_bool_env('SECURE_SSL_REDIRECT', default=False)
+
+# We need a special check so that we don't get infinite redirects
+SERVING_ON_HEROKU = get_bool_env('SERVING_ON_HEROKU', default=False)
+HEROKU_APP_DOMAIN = 'herokuapp.com'
+if SERVING_ON_HEROKU:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+if not DEBUG:
+    SECURE_HSTS_SECONDS = int(os.getenv('SECURE_HSTS_SECONDS', default=60))
+    CSRF_COOKIE_SECURE = get_bool_env('CSRF_COOKIE_SECURE', default=SECURE_SSL_REDIRECT)
+    SECURE_HSTS_PRELOAD = get_bool_env('SECURE_HSTS_PRELOAD', default=SECURE_SSL_REDIRECT)
+    X_FRAME_OPTIONS = os.getenv('X_FRAME_OPTIONS', default='DENY').upper()
+    SESSION_COOKIE_SECURE = get_bool_env('SESSION_COOKIE_SECURE', default=SECURE_SSL_REDIRECT)
+    SECURE_BROWSER_XSS_FILTER = get_bool_env('SECURE_BROWSER_XSS_FILTER', default=True)
+    SECURE_CONTENT_TYPE_NOSNIFF = get_bool_env('SECURE_CONTENT_TYPE_NOSNIFF', default=True)
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = get_bool_env('SECURE_HSTS_INCLUDE_SUBDOMAINS', default=SECURE_SSL_REDIRECT)
+
 
 
 # Application definition
@@ -46,7 +71,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fantasy_racing.picks',
+
+    'social_django',
 ]
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
 
 USE_WHITENOISE = get_bool_env('USE_WHITENOISE', False)
 
@@ -76,6 +105,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -129,6 +160,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+SOCIAL_AUTH_TWITTER_KEY = os.getenv('TWITTER_KEY', '')
+SOCIAL_AUTH_TWITTER_SECRET = os.getenv('TWITTER_SECRET', '')
 
 
 # Static files (CSS, JavaScript, Images)

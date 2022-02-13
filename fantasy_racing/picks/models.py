@@ -25,6 +25,10 @@ class Schedule(models.Model):
     
     def __str__(self) -> str:
         return str(self.year)
+    
+    @property
+    def races_complete(self):
+        return self.races.filter(date__lte=timezone.now().date()).count()
 
 
 class RaceManager(models.Manager):
