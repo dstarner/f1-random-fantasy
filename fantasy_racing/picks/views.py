@@ -2,8 +2,9 @@ import logging
 import random
 
 from django.conf import settings
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
+import requests
 import tweepy
 
 from fantasy_racing.utils import twitter
@@ -54,26 +55,23 @@ def standings(request, year=None):
     return render(request, 'standings.html', {'schedule': schedule, 'title': f'{schedule.year} Standings'})
 
 
-def play(request):
+def play(request: HttpRequest):
     oauth = twitter.get_oauth_client()
-    auth_url = oauth.get_authorization_url(signin_with_twitter=True)
+    auth_url = oauth.get_authorization_url()
     response = HttpResponseRedirect(auth_url)
-    request.session['request_token'] = oauth.request_token
-    logger.debug('%s', oauth.request_token)
+    request.session['code_verifier'] = oauth.code_verifier
     return response
 
 
-def pick(request):
-    verifier = request.GET.get('oauth_verifier')
+def pick(request: HttpRequest):
     oauth = twitter.get_oauth_client()
-    token = request.session.get('request_token')
-	# remove the request token now we don't need it
-    request.session.delete('request_token')
-    oauth.request_token = token
-
-    access_token, access_token_secret = oauth.get_access_token(verifier)
-
-    twitter_api = twitter.get_api(access_token, access_token_secret)
-    user = twitter_api.get_me()
-    logger.info('%s', user)
+    oauth.code_verifier = request.session['code_verifier']
+    request.session.delete('code_verifier')
+    
+    bearer_token_info = oauth.fetch_token(authorization_response=request.build_absolute_uri())
+    client = twitter.get_client(bearer_token_info)
+    try:
+        user = client.get_user(username='dan_starner')
+    except tweepy.Forbidden as e:
+        logger.exception('unable to get user info: %s', e.response.json())
     return render(request, 'pick.html')

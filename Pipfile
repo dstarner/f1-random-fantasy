@@ -13,6 +13,7 @@ pyyaml = "*"
 python-dotenv = "==0.19.2"
 django = "==3.2.8"
 tweepy = "*"
+requests = "*"
 
 [dev-packages]
 
