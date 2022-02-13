@@ -9,7 +9,7 @@ import tweepy
 
 from fantasy_racing.utils import twitter
 
-from .models import FAQ, Race, RaceDriver, RacePick, Schedule, TwitterUser
+from .models import FAQ, Race, RaceDriver, RacePick, RaceResult, Schedule, TwitterUser
 
 
 logger = logging.getLogger(__name__)
@@ -76,18 +76,26 @@ def players(request):
 def statistics(request):
     SingleStat = namedtuple('SingleStat', field_names=('title', 'value'))
     common_picks = RaceDriver.objects.annotate(num_picks=models.Count('picks')).order_by('-num_picks')[:25]
+    most_wins = TwitterUser.objects \
+                           .annotate(num_wins=models.Count('picks', filter=models.Q(picks__result__position=1))) \
+                           .order_by('-num_wins')
 
     return render(request, 'statistics.html', {
         'single_stats': [
             SingleStat(title='Total Players', value=TwitterUser.objects.count()),
             SingleStat(title='Total Picks', value=RacePick.objects.count()),
             SingleStat(title='Most Common Pick', value=common_picks.first().last_name),
-            SingleStat(title='Winning Picks', value='-1'),
+            SingleStat(title='Winning Picks', value=RacePick.objects.filter(result__position=1).count()),
             SingleStat(title='Total Races', value=Race.objects.viewable().count()),
-            SingleStat(title='Average Finish', value='-1.0'),
+            SingleStat(
+                title='Average Finish',
+                value=RacePick.objects.filter(result__isnull=False) \
+                                      .aggregate(res=models.Avg('result__position'))['res']
+            ),
         ],
         'starts': TwitterUser.objects.with_start_count().order_by('-starts')[:25],
         'common_picks': common_picks,
+        'most_wins': most_wins,
     })
 
 

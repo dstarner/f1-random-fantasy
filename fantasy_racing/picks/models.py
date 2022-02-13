@@ -2,6 +2,8 @@ import random
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils import timezone
 from django_extensions.db.fields import CreationDateTimeField
 
@@ -198,29 +200,6 @@ class TwitterUser(models.Model):
         return f'@{self.username}'
 
 
-class RacePick(models.Model):
-
-    user = models.ForeignKey(TwitterUser, on_delete=models.CASCADE)
-
-    driver = models.ForeignKey(RaceDriver, on_delete=models.PROTECT)
-
-    race = models.ForeignKey(Race, on_delete=models.CASCADE)
-
-    tweet_id = models.CharField(max_length=64)
-
-    timestamp = CreationDateTimeField()
-
-    class Meta:
-        unique_together = ['race', 'user']
-        default_related_name = 'picks'
-        ordering = ('timestamp',)
-        verbose_name = 'Race Pick'
-        verbose_name_plural = 'Race Picks'
-    
-    def __str__(self):
-        return f"{self.user}'s pick for {self.race}"
-
-
 class RaceResult(models.Model):
 
     driver = models.ForeignKey(RaceDriver, on_delete=models.CASCADE)
@@ -243,3 +222,38 @@ class RaceResult(models.Model):
     
     def __str__(self) -> str:
         return f'{self.driver} @ {self.race}'
+
+
+class RacePick(models.Model):
+
+    user = models.ForeignKey(TwitterUser, on_delete=models.CASCADE)
+
+    driver = models.ForeignKey(RaceDriver, on_delete=models.PROTECT)
+
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
+
+    tweet_id = models.CharField(max_length=64)
+
+    timestamp = CreationDateTimeField()
+
+    result = models.ForeignKey(
+        RaceResult, on_delete=models.CASCADE, null=True, blank=True,
+        help_text='Is associated on result save'
+    )
+
+    class Meta:
+        unique_together = ['race', 'user']
+        default_related_name = 'picks'
+        ordering = ('timestamp',)
+        verbose_name = 'Race Pick'
+        verbose_name_plural = 'Race Picks'
+    
+    def __str__(self):
+        return f"{self.user}'s pick for {self.race}"
+
+
+@receiver(post_save, sender=RaceResult)
+def update_race_pick_results(instance: RaceResult, **kwargs):
+    """When a result is provided, update all associated picks to point at it
+    """
+    RacePick.objects.filter(race=instance.race, driver=instance.driver).all().update(result=instance)
