@@ -21,17 +21,19 @@
                 </tr>
             </thead>
             <tbody class="lh-copy">
+                {% for user in standings %}
                 <tr class="tl stripe-dark">
-                    <td class="pa2">1</td>
-                    <td class="pa2">1,039</td>
-                    <td class="pa2">-0</td>
-                    <td class="pa2"><a class="link dim light-pink" href="https://randomfantasyracing.com/player/mwoodski/2021">@mwoodski</a></td>
-                    <td class="pa2">36</td>
-                    <td class="pa2">2</td>
-                    <td class="pa2">9</td>
-                    <td class="pa2">17</td>
-                    <td class="pa2">13.6</td>
+                    <td class="pa2">{{ forloop.counter }}</td>
+                    <td class="pa2">{{ user.points }}</td>
+                    <td class="pa2">-{{ leader_points|add:user.points }}</td>
+                    <td class="pa2"><a class="link dim light-pink" href="https://randomfantasyracing.com/player/mwoodski/2021">{{ user }}</a></td>
+                    <td class="pa2">{{ user.starts }}</td>
+                    <td class="pa2">-</td>
+                    <td class="pa2">-</td>
+                    <td class="pa2">-</td>
+                    <td class="pa2">-</td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

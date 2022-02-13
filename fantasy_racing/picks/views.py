@@ -2,6 +2,7 @@ from collections import namedtuple
 import logging
 import random
 
+from django.db import models
 from django.http import Http404, HttpRequest
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponseRedirect
 import tweepy
@@ -51,7 +52,15 @@ def picks(request, id=None):
 
 def standings(request, year=None):
     schedule = Schedule.objects.last() if year is None else get_object_or_404(Schedule, year=year)
-    return render(request, 'standings.html', {'schedule': schedule, 'title': f'{schedule.year} Standings'})
+    standings = TwitterUser.objects \
+                           .participating_users(schedule=schedule) \
+                           .annotate(points=models.Value(0)) \
+                           .order_by('-points')
+    leader_points = standings.first().points
+    return render(request, 'standings.html', {
+        'schedule': schedule, 'title': f'{schedule.year} Standings',
+        'standings': standings, 'leader_points': leader_points
+    })
 
 
 def player(request, username):
@@ -60,21 +69,25 @@ def player(request, username):
 
 
 def players(request):
-    users = TwitterUser.objects.all()
+    users = TwitterUser.objects.with_start_count().all()
     return render(request, 'players.html', {'users': users})
 
 
 def statistics(request):
     SingleStat = namedtuple('SingleStat', field_names=('title', 'value'))
+    common_picks = RaceDriver.objects.annotate(num_picks=models.Count('picks')).order_by('-num_picks')[:25]
+
     return render(request, 'statistics.html', {
         'single_stats': [
             SingleStat(title='Total Players', value=TwitterUser.objects.count()),
             SingleStat(title='Total Picks', value=RacePick.objects.count()),
-            SingleStat(title='Most Common Pick', value='#-1'),
+            SingleStat(title='Most Common Pick', value=common_picks.first().last_name),
             SingleStat(title='Winning Picks', value='-1'),
             SingleStat(title='Total Races', value=Race.objects.viewable().count()),
             SingleStat(title='Average Finish', value='-1.0'),
-        ]
+        ],
+        'starts': TwitterUser.objects.with_start_count().order_by('-starts')[:25],
+        'common_picks': common_picks,
     })
 
 

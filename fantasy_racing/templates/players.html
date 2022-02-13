@@ -24,7 +24,7 @@
                 <tr class="tl stripe-dark">
                     <td class="pa2">{{ forloop.counter }}</td>
                     <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="{% url 'player' username=user.username %}">{{ user }}</a></span></td>
-                    <td class="pa2">0</td>
+                    <td class="pa2">{{ user.starts }}</td>
                     <td class="pa2">0</td>
                     <td class="pa2">0</td>
                     <td class="pa2">0</td>

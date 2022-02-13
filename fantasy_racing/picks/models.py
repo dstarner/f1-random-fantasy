@@ -166,6 +166,18 @@ class Race(models.Model):
         return f'{self.track} in {self.schedule.year}'
 
 
+class TwitterUserQuerySet(models.QuerySet):
+
+    def with_start_count(self, schedule: Schedule = None):
+        if not schedule:
+            return self.annotate(starts=models.Count('picks'))
+        return self.annotate(starts=models.Count('picks', filter=models.Q(picks__race__schedule=schedule)))
+
+    def participating_users(self, schedule: Schedule):
+        return self.with_start_count(schedule=schedule) \
+                   .filter(starts__gt=0).all()
+
+
 class TwitterUser(models.Model):
 
     id = models.PositiveIntegerField(primary_key=True, unique=True, verbose_name='Twitter ID')
@@ -175,6 +187,8 @@ class TwitterUser(models.Model):
     name = models.CharField(max_length=128)
 
     profile_img = models.URLField()
+
+    objects = TwitterUserQuerySet.as_manager()
 
     class Meta:
         verbose_name = 'Twitter User'
@@ -198,6 +212,7 @@ class RacePick(models.Model):
 
     class Meta:
         unique_together = ['race', 'user']
+        default_related_name = 'picks'
         ordering = ('timestamp',)
         verbose_name = 'Race Pick'
         verbose_name_plural = 'Race Picks'
@@ -205,3 +220,26 @@ class RacePick(models.Model):
     def __str__(self):
         return f"{self.user}'s pick for {self.race}"
 
+
+class RaceResult(models.Model):
+
+    driver = models.ForeignKey(RaceDriver, on_delete=models.CASCADE)
+
+    race = models.ForeignKey(Race, on_delete=models.CASCADE)
+
+    position = models.SmallIntegerField()
+
+    points = models.SmallIntegerField()
+
+    class Meta:
+        unique_together = [
+            ('race', 'driver'),
+            ('race', 'position'),
+        ]
+        default_related_name = 'results'
+        ordering = ('race', 'position',)
+        verbose_name = 'Race Result'
+        verbose_name_plural = 'Race Results'
+    
+    def __str__(self) -> str:
+        return f'{self.driver} @ {self.race}'
