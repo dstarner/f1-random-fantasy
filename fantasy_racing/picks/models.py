@@ -215,6 +215,12 @@ class TwitterUser(models.Model):
 
     def __str__(self) -> str:
         return f'@{self.username}'
+    
+    @property
+    def first_pick(self):
+        if not getattr(self, '_first_pick', None):
+            self._first_pick = self.picks.order_by('race__date').first()
+        return self._first_pick
 
 
 class RaceResult(models.Model):

@@ -9,7 +9,7 @@ import tweepy
 
 from fantasy_racing.utils import twitter
 
-from .models import FAQ, Race, RaceDriver, RacePick, RaceResult, Schedule, TwitterUser
+from .models import FAQ, Race, RaceDriver, RacePick, Schedule, TwitterUser
 
 
 logger = logging.getLogger(__name__)
@@ -88,7 +88,7 @@ def player_season(request, username: str, year: int):
 def players(request):
     users = TwitterUser.objects \
                        .details() \
-                       .order_by('-starts', '-avg_finish')
+                       .order_by('-starts', 'avg_finish')
     return render(request, 'players.html', {'users': users})
 
 
@@ -127,6 +127,10 @@ def play(request: HttpRequest):
 
 
 def pick(request: HttpRequest):
+    race = Race.objects.current()
+    if not race:
+        raise Http404
+
     verifier = request.GET.get('oauth_verifier')
     oauth = twitter.get_oauth_client()
     token = request.session.get('request_token')
@@ -137,7 +141,15 @@ def pick(request: HttpRequest):
     request.session.delete('request_token')
     oauth.request_token = token
 
-    access_token, access_token_secret = oauth.get_access_token(verifier)
+    try:
+        access_token, access_token_secret = oauth.get_access_token(verifier)
+    except tweepy.TweepyException as e:
+        # If people refresh the page, then we just send them to the race page
+        if '401' in str(e):
+            return redirect('race_id', id=race.id)
+        else:
+            raise e
+
     client = twitter.get_client(access_token, access_token_secret)
     try:
         user_response = client.get_me(user_fields=['profile_image_url', 'username', 'id', 'name'])
@@ -151,10 +163,6 @@ def pick(request: HttpRequest):
     ))
     if created:
         logger.info('%s just joined for the first time!', twitter_user)
-    
-    race = Race.objects.current()
-    if not race:
-        raise Http404
 
     random_driver: RaceDriver = RaceDriver.objects.random()
     pick, created = RacePick.objects.get_or_create(user=twitter_user, race=race, defaults=dict(

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="vhs-blur vhs-duration-4">
     <h1 class="pb0 f3 f2-m f1-l domaine-display">
-        {{ race.track }}<span class="f4 f3-m f2-l dn"> presented by <a class="link dim light-pink nowrap hide-child" target="_blank" href="#">TBA <span class="light-purple child absolute">&rarr;</span></a></span>
+        {{ race.track }}
     </h1>
     <h2 class="pb3 f7 f5-ns normal ttu tracked">
         <a href="{% url 'schedule_year' year=race.schedule.year %}" class="link dim light-pink">{{ race.schedule.year }}</a> Race {{ race.idx }} &middot; <span class="nowrap">{{ race.date|date:"F d, Y" }}</span>
@@ -24,10 +24,12 @@
                 {% for pick in picks %}
                 <tr class="tl stripe-dark">
                     <td class="pa2">{{ forloop.counter }}</td>
-                    <td class="pa2"><a class="link dim light-pink hide-child nowrap" href="https://twitter.com/{{ pick.user.username }}/status/{{ pick.tweet_id }}" target="_blank" title="2022-01-30 07:29 PM">#{{ pick.driver.default_number }} {{ pick.driver.last_name }}<span class="light-purple child">&rarr;</span></a></td>
+                    <td class="pa2"><a class="link dim light-pink hide-child nowrap" href="https://twitter.com/{{ pick.user.username }}/status/{{ pick.tweet_id }}" target="_blank" title="2022-01-30 07:29 PM">
+                        #{{ pick.driver.default_number }} {{ pick.driver.last_name }}<span class="light-purple child">&rarr;</span>
+                    </a></td>
                     <td class="pa2"><a class="link dim light-pink" href="{% url 'player' username=pick.user.username %}">{{ pick.user }}</a></td>
-                    <td class="pa2">-</td>
-                    <td class="pa2">-</td>
+                    <td class="pa2 nowrap">{% if pick.result %}{{ pick.result.position }}{% else %}-{% endif %}</td>
+                    <td class="pa2 nowrap">{% if pick.result %}{{ pick.result.points }}{% else %}-{% endif %}</td>
                 </tr>
                 {% endfor %}
             </tbody>

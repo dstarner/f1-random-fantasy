@@ -5,14 +5,43 @@
 	
     <a class="link grow light-pink" href="https://twitter.com/{{ user.username }}" target="_blank"><img src="{{ user.profile_img }}" class="br-100 w3 h3 grow ba b--light-pink bw1 pa1" alt="{{ user.username }}"></a>
     
-    <h1 class="pb3 f3 f2-m f1-l domaine-display lh-solid">Career Statistics for <a class="link dim light-pink hide-child nowrap" href="http://twitter.com/{{ user.username }}" target="_blank">{{ user }} <span class="light-purple child absolute">&rarr;</span></a></h1>	
+    <h1 class="pb3 f3 f2-m f1-l domaine-display lh-solid">{% if year %}{{ year }}{% else %}Career{% endif %} Statistics for <a class="link dim light-pink hide-child nowrap" href="http://twitter.com/{{ user.username }}" target="_blank">{{ user }} <span class="light-purple child absolute">&rarr;</span></a></h1>	
 
-
-    <p class="f6 ttu tracked light-purple pb3">Picking since <a href="https://randomfantasyracing.com/picks/288" class="link dim light-pink">Martinsville, 2021</a></p>
+    {% if user.first_pick %}
+    <p class="f6 ttu tracked light-purple pb3">Picking since <a href="{% url 'race_id' id=user.first_pick.race_id %}" class="link dim light-pink">{{ user.first_pick.race.track }}, {{ user.first_pick.race.schedule.year }}</a></p>
+    {% endif %}
 
     <div class="overflow-auto">
         <table class="f6 w-100 mw8 center ba bn-ns b--light-purple" cellspacing="0">
             {% if picks %}
+            <thead>
+                <tr class="tl f7 ttu tracked-l light-purple normal">
+                    <th class="pa2 nowrap normal">No.</th>
+                    <th class="pa2 nowrap normal">Race</th>
+                    <th class="pa2 nowrap normal">Pick</th>
+                    <th class="pa2 nowrap normal">Pos.</th>
+                    <th class="pa2 nowrap normal">Pts.</th>
+                </tr>
+            </thead>
+            <tbody class="lh-copy">
+                {% for pick in picks %}
+                <tr class="tl stripe-dark">
+                    <td class="pa2 nowrap">{{ forloop.counter }}</td>
+                    <td class="pa2 nowrap">
+                        <a class="link dim light-pink" href="{% url 'race_id' id=pick.race_id %}">
+                            {{ pick.race.track }}
+                        </a>
+                    </td>
+                    <td class="pa2 nowrap">
+                        <a class="link dim light-pink hide-child" href="https://twitter.com/{{ user.username }}/status/{{ pick.tweet_id }}" target="_blank">
+                            #{{ pick.driver.default_number }} {{ pick.driver.last_name }}<span class="light-purple child">&rarr;</span>
+                        </a>
+                    </td>
+                    <td class="pa2 nowrap">{% if pick.result %}{{ pick.result.position }}{% else %}-{% endif %}</td>
+                    <td class="pa2 nowrap">{% if pick.result %}{{ pick.result.points }}{% else %}-{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
             {% else %}
             <thead>
                 <tr class="tl f7 ttu tracked-l light-purple">

@@ -10,7 +10,7 @@
     <p class="f4 f3-ns">You picked:</p>
         <p class="f-headline lh-solid pv2 pv3-ns ma0 domaine-display"><sup>#</sup>{{ pick.driver.default_number }}</p>
         <p class="f2 lh-copy pv2 pv3-ns ma0 domaine-display">{{ pick.driver.name }}</p>
-        <p class="f6">Your pick was {% if not created %}already{% endif %} <a class="link dim light-pink" href="https://twitter.com/dan_starner/status/1490491780520943620" target="_blank">tweeted</a>.</p>
+        <p class="f6">Your pick was {% if not created %}already{% endif %} <a class="link dim light-pink" href="https://twitter.com/{{ user.username }}/status/{{ pick.tweet_id }}" target="_blank">tweeted</a>.</p>
         <p class="f6 ma0 pt3">Good luck! Check back after the race to see if you made a good pick.</p>
           
 <p class="f6 ma0 pt5">Check out who everybody else picked:</p>
