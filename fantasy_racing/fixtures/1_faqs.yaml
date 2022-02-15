@@ -46,9 +46,11 @@
 - model: picks.faq
   pk: 6
   fields:
-    question: How much does it cost to play Random Fantasy Racing?
-    answer: It is free to play. Also, there are no ads. Or creepy data collection tactics. Or any other
-      kind of BS. Unlike attending a real Formula 1 race, it won't cost you your life savings!
+    question: How is this different from NASCAR Random Fantasy Racing?
+    answer: Well, for starters, this uses the Formula 1 drivers and schedule instead of NASCAR.
+      But for real, what [@steveluvender](http://twitter.com/steveluvender) built with
+      <randomfantasyracing.com> is pretty neat, and I was a fan & user of the service. My friends
+      wanted something similar for Formula 1, and I wanted to see how quickly I could clone something.
     order: 9500
 
 - model: picks.faq
