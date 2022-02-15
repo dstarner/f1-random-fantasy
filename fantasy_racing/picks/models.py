@@ -186,8 +186,8 @@ class TwitterUserQuerySet(models.QuerySet):
         qs = self.with_start_count(schedule=schedule)
         return qs.annotate(
             wins=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position=1))),
-            top_5s=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position__lte=5))),
-            top_10s=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position__lte=5))),
+            podiums=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position__lte=3))),
+            top_10s=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position__lte=10))),
             avg_finish=models.Avg('picks__result__position', filter=with_schedule_q(None)),
             points=models.Sum('picks__result__points', filter=with_schedule_q(None))
         )

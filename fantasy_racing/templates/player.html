@@ -49,7 +49,7 @@
                     <th class="pa2 nowrap normal">Points</th>
                     <th class="pa2 nowrap normal">Starts</th>
                     <th class="pa2 nowrap normal">Wins</th>
-                    <th class="pa2 nowrap normal">Top 5</th>
+                    <th class="pa2 nowrap normal">Podium</th>
                     <th class="pa2 nowrap normal">Top 10</th>
                     <th class="pa2 nowrap normal">Avg. Fin.</th>
                 </tr>
@@ -61,7 +61,7 @@
                     <td class="pa2">{{ season.points }}</td>
                     <td class="pa2">{{ season.starts }}</td>
                     <td class="pa2">{{ season.wins }}</td>
-                    <td class="pa2">{{ season.top_5s }}</td>
+                    <td class="pa2">{{ season.podiums }}</td>
                     <td class="pa2">{{ season.top_10s }}</td>
                     <td class="pa2">{{ season.avg_finish }}</td>
                 </tr>
@@ -86,8 +86,8 @@
                     <dd class="f3 f2-l ml0 domaine-display">{{ user.wins }}</dd>
                 </dl>
                 <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
-                    <dd class="f6 fw4 ml0">Top 5s</dd>
-                    <dd class="f3 f2-l ml0 domaine-display">{{ user.top_5s }}</dd>
+                    <dd class="f6 fw4 ml0">Podiums</dd>
+                    <dd class="f3 f2-l ml0 domaine-display">{{ user.podiums }}</dd>
                 </dl>
                 <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
                     <dd class="f6 fw4 ml0">Top 10s</dd>

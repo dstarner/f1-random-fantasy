@@ -14,7 +14,7 @@
                     <th class="pa2 nowrap normal"><a href="players/username/asc" class="link dim light-purple ">Player</a></th>
                     <th class="pa2 nowrap normal"><a href="players/starts/desc" class="link dim light-purple bb bw1">Starts</a></th>
                     <th class="pa2 nowrap normal"><a href="players/wins/desc" class="link dim light-purple ">Wins</a></th>
-                    <th class="pa2 nowrap normal"><a href="players/top5/desc" class="link dim light-purple ">Top 5</a></th>
+                    <th class="pa2 nowrap normal"><a href="players/top5/desc" class="link dim light-purple ">Podium</a></th>
                     <th class="pa2 nowrap normal"><a href="players/top10/desc" class="link dim light-purple ">Top 10</a></th>
                     <th class="pa2 nowrap normal"><a href="players/avgfin/asc" class="link dim light-purple ">Avg. Fin.</a></th>
                 </tr>
@@ -26,7 +26,7 @@
                     <td class="pa2"><span class="nowrap"><a class="link dim light-pink" href="{% url 'player' username=user.username %}">{{ user }}</a></span></td>
                     <td class="pa2">{{ user.starts }}</td>
                     <td class="pa2">{{ user.wins }}</td>
-                    <td class="pa2">{{ user.top_5s }}</td>
+                    <td class="pa2">{{ user.podiums }}</td>
                     <td class="pa2">{{ user.top_10s }}</td>
                     <td class="pa2">{{ user.avg_finish }}</td>
                 </tr>
