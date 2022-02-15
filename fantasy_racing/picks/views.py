@@ -32,13 +32,16 @@ def index(request):
 def about(request):
     return render(request, 'about.html', {
         'faqs': FAQ.objects.all(),
+        'title': 'About'
     })
 
 
 def schedule(request, year=None):
     schedule = Schedule.objects.last() if year is None else get_object_or_404(Schedule, year=year)
     years = Schedule.objects.values_list('year', flat=True)
-    return render(request, 'schedule.html', {'schedule': schedule, 'years': years})
+    return render(request, 'schedule.html', {
+        'schedule': schedule, 'years': years, 'title': f'{schedule.year} Schedule'
+    })
 
 
 def picks(request, id=None):
@@ -47,7 +50,7 @@ def picks(request, id=None):
         raise Http404
     
     picks = RacePick.objects.filter(race=race).all()
-    return render(request, 'picks.html', {'race': race, 'title': race.track, 'picks': picks})
+    return render(request, 'picks.html', {'race': race, 'title': f'{race} Picks', 'picks': picks})
 
 
 def standings(request, year=None):
@@ -71,7 +74,9 @@ def player(request, username):
         TwitterUser.objects.filter(username=username).annotate(year=models.Value(sched.year)).details(schedule=sched).first()
         for sched in Schedule.objects.all().order_by('-year')
     ]))
-    return render(request, 'player.html', {'user': twitter_user, 'seasons': user_seasons})
+    return render(request, 'player.html', {
+        'user': twitter_user, 'title': f'{twitter_user} Career', 'seasons': user_seasons
+    })
 
 
 def player_season(request, username: str, year: int):
@@ -82,14 +87,17 @@ def player_season(request, username: str, year: int):
         for sched in Schedule.objects.all().order_by('-year')
     ]))
     picks = RacePick.objects.filter(user=twitter_user, race__schedule=schedule).all()
-    return render(request, 'player.html', {'user': twitter_user, 'seasons': user_seasons, 'year': year, 'picks': picks})
+    return render(request, 'player.html', {
+        'user': twitter_user, 'seasons': user_seasons, 'year': year,
+        'picks': picks, 'title': f'{twitter_user} {year} Schedule',
+    })
 
 
 def players(request):
     users = TwitterUser.objects \
                        .details() \
                        .order_by('-starts', 'avg_finish')
-    return render(request, 'players.html', {'users': users})
+    return render(request, 'players.html', {'users': users, 'title': 'Players'})
 
 
 def statistics(request):
@@ -115,6 +123,7 @@ def statistics(request):
         'starts': TwitterUser.objects.with_start_count().order_by('-starts')[:25],
         'common_picks': common_picks,
         'most_wins': most_wins,
+        'title': 'Statistics'
     })
 
 
@@ -172,5 +181,5 @@ def pick(request: HttpRequest):
     if not created:
         logger.info('Created %s', pick)
 
-    context = {'race': race, 'user': twitter_user, 'pick': pick, 'created': created}
+    context = {'race': race, 'user': twitter_user, 'pick': pick, 'created': created, 'title': 'Pick'}
     return render(request, 'pick.html', context)
