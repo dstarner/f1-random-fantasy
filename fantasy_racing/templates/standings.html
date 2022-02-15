@@ -25,13 +25,13 @@
                 <tr class="tl stripe-dark">
                     <td class="pa2">{{ forloop.counter }}</td>
                     <td class="pa2">{{ user.points }}</td>
-                    <td class="pa2">-{{ leader_points|add:user.points }}</td>
+                    <td class="pa2">{% if forloop.counter == 1 %}-{% else %}{{ leader_points|add:user.points }}{% endif %}</td>
                     <td class="pa2"><a class="link dim light-pink" href="https://randomfantasyracing.com/player/mwoodski/2021">{{ user }}</a></td>
                     <td class="pa2">{{ user.starts }}</td>
-                    <td class="pa2">-</td>
-                    <td class="pa2">-</td>
-                    <td class="pa2">-</td>
-                    <td class="pa2">-</td>
+                    <td class="pa2">{{ user.wins }}</td>
+                    <td class="pa2">{{ user.top_5s }}</td>
+                    <td class="pa2">{{ user.top_10s }}</td>
+                    <td class="pa2">{{ user.avg_finish }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

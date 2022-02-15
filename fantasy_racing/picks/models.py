@@ -174,6 +174,23 @@ class TwitterUserQuerySet(models.QuerySet):
         if not schedule:
             return self.annotate(starts=models.Count('picks'))
         return self.annotate(starts=models.Count('picks', filter=models.Q(picks__race__schedule=schedule)))
+    
+    def details(self, schedule: Schedule = None):
+
+        def with_schedule_q(q: models.QuerySet):
+            if not schedule:
+                return q
+            schedule_q = models.Q(picks__race__schedule=schedule)
+            return q & schedule_q if q else schedule_q
+
+        qs = self.with_start_count(schedule=schedule)
+        return qs.annotate(
+            wins=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position=1))),
+            top_5s=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position__lte=5))),
+            top_10s=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position__lte=5))),
+            avg_finish=models.Avg('picks__result__position', filter=with_schedule_q(None)),
+            points=models.Sum('picks__result__points', filter=with_schedule_q(None))
+        )
 
     def participating_users(self, schedule: Schedule):
         return self.with_start_count(schedule=schedule) \
