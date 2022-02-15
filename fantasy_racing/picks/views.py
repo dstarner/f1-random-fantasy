@@ -59,7 +59,8 @@ def standings(request, year=None):
                            .participating_users(schedule=schedule) \
                            .details(schedule=schedule) \
                            .order_by('-points')
-    leader_points = -1 * standings.first().points
+    leader = standings.first()
+    leader_points = -1 * (leader.points if leader else 0)
     return render(request, 'standings.html', {
         'schedule': schedule, 'title': f'{schedule.year} Standings',
         'standings': standings, 'leader_points': leader_points
@@ -117,7 +118,7 @@ def statistics(request):
             SingleStat(
                 title='Average Finish',
                 value=RacePick.objects.filter(result__isnull=False) \
-                                      .aggregate(res=models.Avg('result__position'))['res']
+                                      .aggregate(res=models.Avg('result__position'))['res'] or 0
             ),
         ],
         'starts': TwitterUser.objects.with_start_count().order_by('-starts')[:25],

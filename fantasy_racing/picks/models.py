@@ -2,6 +2,7 @@ import random
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.functions import Coalesce
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
@@ -188,8 +189,9 @@ class TwitterUserQuerySet(models.QuerySet):
             wins=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position=1))),
             podiums=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position__lte=3))),
             top_10s=models.Count('picks', filter=with_schedule_q(models.Q(picks__result__position__lte=10))),
-            avg_finish=models.Avg('picks__result__position', filter=with_schedule_q(None)),
-            points=models.Sum('picks__result__points', filter=with_schedule_q(None))
+            avg_finish=Coalesce(models.Avg('picks__result__position', filter=with_schedule_q(None)), 0.0),
+            # Coalesce handles the case of null result/points before a season starts
+            points=Coalesce(models.Sum('picks__result__points', filter=with_schedule_q(None)), 0)
         )
 
     def participating_users(self, schedule: Schedule):
